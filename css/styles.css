@@ -1,0 +1,68 @@
+/* font-family: 'Alegreya Sans', sans-serif; Regular
+font-family: 'Roboto', sans-serif; Regular
+font-family: 'Work Sans', sans-serif; Semi-Bold 600 */
+body {
+  height: 100vh;
+  width: 100vw;
+}
+
+header {
+  padding: 0 20px;
+}
+
+h1,
+h3 {
+  margin: 0;
+}
+
+h1 {
+  font-family: "Alegreya Sans", sans-serif;
+  font-weight: 300;
+  font-size: 48px;
+}
+
+h3 {
+  font-family: "Work Sans", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.bg-blue {
+  background-color: #5e86dd;
+}
+
+.bg-grey {
+  background-color: #f6f6f6;
+}
+
+.display-flex {
+  display: flex;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.text-white {
+  color: white;
+}
+
+.height-56 {
+  height: 56px;
+}
+
+.search-bar {
+  height: 36px;
+  border: 1px solid #ced4da;
+  padding: 6px 12px;
+  width: 335px;
+  letter-spacing: 0.6px;
+}
+
+.radius-5 {
+  border-radius: 5px;
+}
+
+.mb-13 {
+  margin-bottom: 13px;
+}

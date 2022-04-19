@@ -4,15 +4,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AJAX Project</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@100;300;400&family=Roboto&family=Work+Sans:wght@600&display=swap"
+    rel="stylesheet">
   <link rel="icon" href="images/favicon.ico">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-  <header>
+<body class="bg-grey">
+  <header class="bg-blue mb-13">
+    <div class="row height-56">
+      <div class="col-full display-flex align-center text-white">
+        <h1>AniRate</h1>
+      </div>
+    </div>
   </header>
-  <main>
+  <main class="container">
+    <div class="row mb-13">
+      <div class="col-full">
+        <div>
+          <h3>Anime Search</h3>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-full">
+        <form>
+          <input class="search-bar radius-5" type="search" placeholder="Search">
+        </form>
+      </div>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
