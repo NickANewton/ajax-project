@@ -1,5 +1,6 @@
 /* exported data */
 
 var data = {
-  search: null
+  searchText: null,
+  searchResults: null
 };

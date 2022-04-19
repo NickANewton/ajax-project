@@ -7,8 +7,8 @@ $body.addEventListener('submit', handleSearchSubmit);
 function handleSearchSubmit(event) {
   event.preventDefault();
   if (event.target === $searchForm) {
-    data.search = $searchBar.value;
-    getAnimeByName(data.search);
+    data.searchText = $searchBar.value;
+    getAnimeByName(data.searchText);
   }
 }
 
