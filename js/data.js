@@ -2,5 +2,5 @@
 
 var data = {
   searchText: null,
-  searchResults: null
+  searchResults: []
 };
