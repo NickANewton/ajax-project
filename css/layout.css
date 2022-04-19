@@ -1,6 +1,12 @@
+.hidden {
+  display: none, !important;
+}
+
 .container {
   padding: 0 20px;
   height: 100vh;
+  max-width: 375px;
+  margin: 0 auto;
 }
 
 .row {
@@ -12,9 +18,13 @@
   width: 100%;
 }
 
-/*
 @media screen and (min-width: 768px) {
   .container {
     max-width: 720px;
   }
-} */
+
+  button.search-button {
+    display: inline;
+    margin-left: 20px;
+  }
+}
