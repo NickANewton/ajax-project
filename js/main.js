@@ -9,7 +9,6 @@ function handleSearchSubmit(event) {
   if (event.target === $searchForm) {
     data.searchText = $searchBar.value;
     getAnimeByName(data.searchText);
-
   }
 }
 
