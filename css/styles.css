@@ -1,0 +1,85 @@
+/* font-family: 'Alegreya Sans', sans-serif; Regular
+font-family: 'Roboto', sans-serif; Regular
+font-family: 'Work Sans', sans-serif; Semi-Bold 600 */
+body {
+  height: 100vh;
+  width: 100vw;
+  font-family: Roboto, sans-serif;
+}
+
+h1,
+h3 {
+  margin: 0;
+}
+
+h1 {
+  font-family: "Alegreya Sans", sans-serif;
+  font-weight: 300;
+  font-size: 48px;
+}
+
+h3 {
+  font-family: "Work Sans", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+button {
+  width: 85px;
+  height: 30px;
+  border: none;
+  background-color: #5e86dd;
+  color: white;
+  box-shadow: 1px 3px 3px rgb(0 0 0 / 15%);
+  letter-spacing: 1px;
+  font-weight: 100;
+  font-size: 12px;
+}
+
+.bg-blue {
+  background-color: #5e86dd;
+}
+
+.bg-grey {
+  background-color: #f6f6f6;
+}
+
+.display-flex {
+  display: flex;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.text-white {
+  color: white;
+}
+
+.height-56 {
+  height: 56px;
+}
+
+.search-bar {
+  height: 36px;
+  border: 1px solid #ced4da;
+  padding: 6px 12px;
+  width: 100%;
+  letter-spacing: 0.6px;
+  font-size: 16px;
+  font-weight: 100;
+  color: #6c757d;
+}
+
+.search-button {
+  display: none;
+  border-radius: 2px;
+}
+
+.radius-5 {
+  border-radius: 5px;
+}
+
+.mb-13 {
+  margin-bottom: 13px;
+}
