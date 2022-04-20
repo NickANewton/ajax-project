@@ -3,6 +3,10 @@ body {
   width: 100vw;
 }
 
+p {
+  line-height: 15px;
+}
+
 .font-size-48 {
   font-size: 48px;
 }
@@ -25,7 +29,6 @@ body {
 
 .li-styles-all {
   list-style-type: none;
-  margin-top: 16px;
 }
 
 .mobile-width-225 {
@@ -36,16 +39,16 @@ body {
   margin: 0 auto;
 }
 
-img {
-  border-radius: 5px;
-  margin-bottom: 13px;
-  width: 100%;
+.mt-8 {
+  margin-top: 8px;
 }
 
-p {
-  margin-top: 8px;
+.mt-12 {
+  margin-top: 12px;
+}
+
+.font-size-12 {
   font-size: 12px;
-  line-height: 15px;
 }
 
 .bg-blue {
@@ -112,9 +115,12 @@ p {
     flex-wrap: wrap;
   }
 
+  .desktop-margin-0-10 {
+    margin: 0 10px;
+  }
+
   img {
     object-fit: cover;
-    margin-right: 10px;
   }
 
   .desktop-search-btn {
