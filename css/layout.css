@@ -24,8 +24,12 @@
     max-width: 720px;
   }
 
-  .col-fourth {
-    width: 25%;
+  .col-half {
+    width: 50%;
+  }
+
+  ul {
+    display: flex;
   }
 
   li {
@@ -35,10 +39,19 @@
   img {
     height: auto;
     object-fit: cover;
+    margin-right: 10px;
   }
 
   button.search-button {
     display: inline;
     margin-left: 20px;
+  }
+
+  .ul-width {
+    width: auto;
+  }
+
+  .text-left {
+    text-align: left;
   }
 }

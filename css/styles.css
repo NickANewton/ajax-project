@@ -1,6 +1,3 @@
-/* font-family: 'Alegreya Sans', sans-serif; Regular
-font-family: 'Roboto', sans-serif; Regular
-font-family: 'Work Sans', sans-serif; Semi-Bold 600 */
 body {
   height: 100vh;
   width: 100vw;
@@ -42,6 +39,7 @@ li {
 ul {
   text-align: center;
   margin: 0 auto;
+  width: 225px;
 }
 
 img {
