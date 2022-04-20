@@ -18,28 +18,29 @@ span {
   font-size: 16px;
 }
 
-button {
+.button-styles-all {
   width: 85px;
   height: 30px;
   border: none;
+  box-shadow: 1px 3px 3px rgb(0 0 0 / 15%);
   background-color: #5e86dd;
   color: white;
-  box-shadow: 1px 3px 3px rgb(0 0 0 / 15%);
-  letter-spacing: 1px;
   font-weight: 100;
   font-size: 12px;
+  letter-spacing: 1px;
 }
 
-li {
+.li-styles-all {
   list-style-type: none;
-  margin-bottom: 13px;
   margin-top: 16px;
 }
 
-ul {
-  text-align: center;
-  margin: 0 auto;
+.mobile-width-225 {
   width: 225px;
+}
+
+.margin-0-auto {
+  margin: 0 auto;
 }
 
 img {
@@ -101,7 +102,7 @@ p {
   display: none;
 }
 
-.radius-5 {
+.border-radius-5 {
   border-radius: 5px;
 }
 
@@ -114,12 +115,16 @@ p {
     display: flex;
   }
 
+  .flex-wrap {
+    flex-wrap: wrap;
+  }
+
   img {
     object-fit: cover;
     margin-right: 10px;
   }
 
-  .desktop-search-button {
+  .desktop-search-btn {
     display: inline;
     border-radius: 2px;
     margin-left: 20px;
@@ -132,4 +137,22 @@ p {
   .desktop-text-left {
     text-align: left;
   }
+}
+
+.font-alegreya-sans {
+  font-family: "Alegreya Sans", sans-serif;
+  font-style: normal;
+  font-weight: 300;
+}
+
+.font-roboto {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.font-work-sans {
+  font-family: "Work Sans", sans-serif;
+  font-style: normal;
+  font-weight: 600;
 }
