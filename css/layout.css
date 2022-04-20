@@ -14,13 +14,27 @@
   flex-wrap: wrap;
 }
 
-.col-full {
+.col-full,
+.col-half {
   width: 100%;
 }
 
 @media screen and (min-width: 768px) {
   .container {
     max-width: 720px;
+  }
+
+  .col-fourth {
+    width: 25%;
+  }
+
+  li {
+    display: flex;
+  }
+
+  img {
+    height: auto;
+    object-fit: cover;
   }
 
   button.search-button {

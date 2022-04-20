@@ -7,18 +7,15 @@ body {
   font-family: Roboto, sans-serif;
 }
 
-h1,
-h3 {
-  margin: 0;
-}
-
 h1 {
   font-family: "Alegreya Sans", sans-serif;
   font-weight: 300;
   font-size: 48px;
 }
 
-h3 {
+h3,
+h4,
+span {
   font-family: "Work Sans", sans-serif;
   font-weight: 600;
   font-size: 16px;
@@ -34,6 +31,29 @@ button {
   letter-spacing: 1px;
   font-weight: 100;
   font-size: 12px;
+}
+
+li {
+  list-style-type: none;
+  margin-bottom: 13px;
+  margin-top: 16px;
+}
+
+ul {
+  text-align: center;
+  margin: 0 auto;
+}
+
+img {
+  border-radius: 5px;
+  margin-bottom: 13px;
+  width: 100%;
+}
+
+p {
+  margin-top: 8px;
+  font-size: 12px;
+  line-height: 15px;
 }
 
 .bg-blue {
@@ -52,8 +72,16 @@ button {
   align-items: center;
 }
 
+.justify-center {
+  justify-content: center;
+}
+
 .text-white {
   color: white;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .height-56 {
