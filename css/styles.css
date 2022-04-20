@@ -19,12 +19,15 @@ p {
   width: 85px;
   height: 30px;
   border: none;
-  box-shadow: 1px 3px 3px rgb(0 0 0 / 15%);
   background-color: #5e86dd;
   color: white;
   font-weight: 100;
   font-size: 12px;
   letter-spacing: 1px;
+}
+
+.box-shadow {
+  box-shadow: 1px 3px 3px rgb(0 0 0 / 30%);
 }
 
 .li-styles-all {
