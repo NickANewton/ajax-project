@@ -52,17 +52,18 @@ function searchResults(results) {
   var $divNumberOfEp = document.createElement('div');
   var $numberOfEpHeadingH4 = document.createElement('h4');
   var $numberOfEpSpan = document.createElement('span');
+  var $reviewbtn = document.createElement('button');
 
   $liAnimeSearch.classList.add('col-half', 'desktop-display-flex', 'mb-13', 'li-styles-all', 'font-size-12');
   $animeImg.classList.add('col-half', 'desktop-margin-0-10', 'border-radius-5', 'box-shadow');
-  $divAnimeSearch.classList.add('col-half');
+  $divAnimeSearch.classList.add('col-half', 'display-flex', 'space-between', 'flex-column', 'align-center', 'desktop-align-left');
   $animeTitleH4.classList.add('font-work-sans', 'font-size-16');
-  $animeSummaryP.classList.add('mt-8');
   $animeTypeHeadingH4.classList.add('font-work-sans', 'font-size-16', 'inline');
   $animeTypeSpan.classList.add('mt-12', 'inline');
   $numberOfEpHeadingH4.classList.add('font-work-sans', 'font-size-16', 'inline');
   $numberOfEpSpan.classList.add('mt-8', 'inline');
   $divType.classList.add('mt-8');
+  $reviewbtn.classList.add('button-styles-all', 'box-shadow', 'mt-8');
 
   $animeImg.setAttribute('src', results.imageUrl);
 
@@ -84,6 +85,7 @@ function searchResults(results) {
   $animeTypeSpan.textContent = results.type;
   $numberOfEpHeadingH4.textContent = 'Episodes: ';
   $numberOfEpSpan.textContent = results.episodes;
+  $reviewbtn.textContent = 'REVIEW';
 
   $liAnimeSearch.appendChild($animeImg);
   $liAnimeSearch.appendChild($divAnimeSearch);
@@ -95,6 +97,7 @@ function searchResults(results) {
   $divNumberOfEp.appendChild($numberOfEpHeadingH4);
   $divNumberOfEp.appendChild($numberOfEpSpan);
   $divAnimeSearch.appendChild($divNumberOfEp);
+  $divAnimeSearch.appendChild($reviewbtn);
 
   return $liAnimeSearch;
 }

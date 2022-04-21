@@ -74,6 +74,14 @@ p {
   justify-content: center;
 }
 
+.space-between {
+  justify-content: space-around;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
 .text-white {
   color: white;
 }
@@ -138,6 +146,10 @@ p {
 
   .desktop-text-left {
     text-align: left;
+  }
+
+  .desktop-align-left {
+    align-items: flex-start;
   }
 }
 
