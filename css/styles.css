@@ -126,11 +126,6 @@ p {
     margin: 0 10px;
   }
 
-  img {
-    object-fit: cover;
-    height: 260px;
-  }
-
   .desktop-search-btn {
     display: inline;
     border-radius: 2px;
