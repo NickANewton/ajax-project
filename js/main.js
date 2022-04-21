@@ -1,7 +1,11 @@
 var $body = document.querySelector('body');
 var $searchBar = document.querySelector('.search-bar');
 var $searchForm = document.querySelector('#search');
-var $ul = document.querySelector('ul');
+var $searchImgNodeList = document.querySelectorAll('.image');
+var $searchH4NodeList = document.querySelectorAll('.h4');
+var $searchP1NodeList = document.querySelectorAll('.p1');
+var $searchP2NodeList = document.querySelectorAll('.p2');
+var $searchP3NodeList = document.querySelectorAll('.p3');
 
 $body.addEventListener('submit', handleSearchSubmit);
 
@@ -31,52 +35,29 @@ function getAnimeByName(search) {
       data.searchResults.push(useableData);
     }
     for (var e = 0; e < data.searchResults.length; e++) {
-      $ul.appendChild(searchResults(data.searchResults[e]));
+      $searchImgNodeList[e].setAttribute('src', data.searchResults[e].imageUrl);
+      $searchH4NodeList[e].textContent = data.searchResults[e].titleEnglish;
+      if (data.searchResults[e].titleEnglish === null) {
+        $searchH4NodeList[e].textContent = data.searchResults[e].title;
+      }
+      $searchP1NodeList[e].textContent = data.searchResults[e].summary;
+      var periodAfter140 = data.searchResults[e].summary.indexOf('.', 140);
+      var periodFirst = data.searchResults[e].summary.indexOf('.');
+      if (data.searchResults[e].summary.length > 140) {
+        $searchP1NodeList[e].textContent = data.searchResults[e].summary.slice(0, periodAfter140 + 1) + '..';
+        if (periodAfter140 > 160) {
+          $searchP1NodeList[e].textContent = data.searchResults[e].summary.slice(0, periodFirst + 1) + '..';
+        } if (periodFirst > 140) {
+          $searchP1NodeList[e].textContent = data.searchResults[e].summary.slice(0, 140) + '...';
+          if (data.searchResults[e].summary.charAt(140) === '.' || data.searchResults[e].summary.charAt(140) === ' ') {
+            $searchP1NodeList[e].textContent = data.searchResults[e].summary.slice(0, 139) + '...';
+          }
+        }
+      }
+
+      $searchP2NodeList[e].textContent = data.searchResults[e].type;
+      $searchP3NodeList[e].textContent = data.searchResults[e].episodes;
     }
   });
   xhr.send();
-}
-
-function searchResults(results) {
-  var $liSearch = document.createElement('li');
-  var $imgSearch = document.createElement('img');
-  var $divSearch = document.createElement('div');
-  var $h4Search = document.createElement('h4');
-  var $p1Search = document.createElement('p');
-  var $p2Search = document.createElement('p');
-  var $span1Search = document.createElement('span');
-  var $p3Search = document.createElement('p');
-  var $span2Search = document.createElement('span');
-
-  $liSearch.classList.add('col-half', 'desktop-display-flex', 'mb-13', 'li-styles-all', 'font-size-12');
-  $imgSearch.classList.add('col-half', 'desktop-margin-0-10', 'border-radius-5', 'box-shadow');
-  $divSearch.classList.add('col-half');
-  $h4Search.classList.add('font-work-sans', 'font-size-16');
-  $p1Search.classList.add('mt-8');
-  $p2Search.classList.add('mt-12');
-  $span1Search.classList.add('font-work-sans', 'font-size-16');
-  $span2Search.classList.add('font-work-sans', 'font-size-16');
-
-  $imgSearch.setAttribute('src', results.imageUrl);
-  $h4Search.textContent = results.titleEnglish;
-  if ($h4Search.textContent === '') {
-    $h4Search.textContent = results.title;
-  }
-
-  $p1Search.textContent = results.summary.slice(0, 140) + '...';
-  $span1Search.textContent = 'Type: ';
-  $p2Search.textContent = results.type;
-  $span2Search.textContent = 'Episodes: ';
-  $p3Search.textContent = results.episodes;
-
-  $liSearch.appendChild($imgSearch);
-  $liSearch.appendChild($divSearch);
-  $divSearch.appendChild($h4Search);
-  $divSearch.appendChild($p1Search);
-  $divSearch.appendChild($p2Search);
-  $span1Search.appendChild($p2Search);
-  $divSearch.appendChild($p3Search);
-  $span2Search.appendChild($p3Search);
-
-  return $liSearch;
 }
