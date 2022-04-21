@@ -106,26 +106,3 @@ function handleUloadEvent(event) {
     $ul.appendChild(searchResults(data.searchResults[e]));
   }
 }
-
-// for (var e = 0; e < data.searchResults.length; e++) {
-//   $searchImgNodeList[e].setAttribute('src', data.searchResults[e].imageUrl);
-//   $searchH4NodeList[e].textContent = data.searchResults[e].titleEnglish;
-//   if (data.searchResults[e].titleEnglish === null) {
-//     $searchH4NodeList[e].textContent = data.searchResults[e].title;
-//   }
-//   $searchP1NodeList[e].textContent = data.searchResults[e].summary;
-//   var spaceAfter140 = data.searchResults[e].summary.indexOf(' ', 140);
-//   var periodFirst = data.searchResults[e].summary.indexOf('.');
-//   if (data.searchResults[e].summary.length > 140) {
-//     $searchP1NodeList[e].textContent = data.searchResults[e].summary.slice(0, spaceAfter140 - 1) + '...';
-//     if (periodAfter140 > 160) {
-//       $searchP1NodeList[e].textContent = data.searchResults[e].summary.slice(0, periodFirst + 1) + '..';
-//     } if (periodFirst > 140) {
-//       $searchP1NodeList[e].textContent = data.searchResults[e].summary.slice(0, 140) + '...';
-//       if (data.searchResults[e].summary.charAt(140) === '.' || data.searchResults[e].summary.charAt(140) === ' ') {
-//         $searchP1NodeList[e].textContent = data.searchResults[e].summary.slice(0, 139) + '...';
-//       }
-//     }
-//   }
-// $searchP2NodeList[e].textContent = data.searchResults[e].type;
-// $searchP3NodeList[e].textContent = data.searchResults[e].episodes;
