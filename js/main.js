@@ -2,7 +2,7 @@ var $body = document.querySelector('body');
 var $searchBar = document.querySelector('.search-bar');
 var $searchForm = document.querySelector('#search');
 var $ul = document.querySelector('ul');
-// var $liNodeList = document.querySelectorAll('li');
+var $liNodeList = document.querySelectorAll('li');
 
 $body.addEventListener('submit', handleSearchSubmit);
 
@@ -17,7 +17,7 @@ function handleSearchSubmit(event) {
 
 function getAnimeByName(search) {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://api.jikan.moe/v4/anime?q=' + search + '&limit=20');
+  xhr.open('GET', 'https://api.jikan.moe/v4/anime?q=' + search + '&sfw=true&limit=20');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     var searchData = xhr.response;
@@ -30,6 +30,11 @@ function getAnimeByName(search) {
       useableData.summary = searchData.data[i].synopsis;
       useableData.episodes = searchData.data[i].episodes;
       data.searchResults.push(useableData);
+    }
+    if ($liNodeList.length !== 0) {
+      for (var g = 0; g < $liNodeList.length; g++) {
+        $ul.removeChild($liNodeList[g]);
+      }
     }
     for (var e = 0; e < data.searchResults.length; e++) {
       $ul.appendChild(searchResults(data.searchResults[e]));
@@ -67,7 +72,10 @@ function searchResults(results) {
   }
 
   $animeSummaryP.textContent = results.summary;
-  if (results.summary.length > 140) {
+  if (results.summary === null) {
+    $animeSummaryP.textContent = 'No Summary Available.';
+  }
+  if ($animeSummaryP.textContent.length > 140) {
     var spaceAfter140 = results.summary.indexOf(' ', 140);
     $animeSummaryP.textContent = results.summary.slice(0, spaceAfter140) + '...';
   }
