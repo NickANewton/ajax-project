@@ -2,7 +2,6 @@ var $body = document.querySelector('body');
 var $searchBar = document.querySelector('.search-bar');
 var $searchForm = document.querySelector('#search');
 var $ul = document.querySelector('ul');
-var $liNodeList = document.querySelectorAll('li');
 
 $body.addEventListener('submit', handleSearchSubmit);
 
@@ -31,10 +30,8 @@ function getAnimeByName(search) {
       useableData.episodes = searchData.data[i].episodes;
       data.searchResults.push(useableData);
     }
-    if ($liNodeList.length !== 0) {
-      for (var g = 0; g < $liNodeList.length; g++) {
-        $ul.removeChild($liNodeList[g]);
-      }
+    while ($ul.firstChild) {
+      $ul.removeChild($ul.firstChild);
     }
     for (var e = 0; e < data.searchResults.length; e++) {
       $ul.appendChild(searchResults(data.searchResults[e]));
