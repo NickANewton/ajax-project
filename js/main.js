@@ -2,6 +2,7 @@ var $body = document.querySelector('body');
 var $searchBar = document.querySelector('.search-bar');
 var $searchForm = document.querySelector('#search');
 var $ul = document.querySelector('ul');
+// var $liNodeList = document.querySelectorAll('li');
 
 $body.addEventListener('submit', handleSearchSubmit);
 
@@ -11,6 +12,7 @@ function handleSearchSubmit(event) {
   if (event.target === $searchForm) {
     data.searchText = $searchBar.value;
     getAnimeByName(data.searchText);
+    $ul.appendChild(searchResults());
   }
 }
 
@@ -29,9 +31,6 @@ function getAnimeByName(search) {
       useableData.summary = searchData.data[i].synopsis;
       useableData.episodes = searchData.data[i].episodes;
       data.searchResults.push(useableData);
-    }
-    for (var e = 0; e < data.searchResults.length; e++) {
-      $ul.appendChild(searchResults(data.searchResults[e]));
     }
   });
   xhr.send();
@@ -86,6 +85,19 @@ function searchResults(results) {
   $divAnimeSearch.appendChild($numberOfEpsP);
 
   return $liAnimeSearch;
+}
+
+window.addEventListener('DOMContentLoaded', handleUloadEvent);
+
+function handleUloadEvent(event) {
+  // if ($liNodeList !== 0) {
+  // for (var i = 0; i < $liNodeList.length; i++) {
+  //   $ul.removeChild($liNodeList[i]);
+  // }
+  // }
+  for (var e = 0; e < data.searchResults.length; e++) {
+    $ul.appendChild(searchResults(data.searchResults[e]));
+  }
 }
 
 // for (var e = 0; e < data.searchResults.length; e++) {
