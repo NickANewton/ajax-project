@@ -7,12 +7,11 @@ var $ul = document.querySelector('ul');
 $body.addEventListener('submit', handleSearchSubmit);
 
 function handleSearchSubmit(event) {
-  data.searchResults = [];
   event.preventDefault();
+  data.searchResults = [];
   if (event.target === $searchForm) {
     data.searchText = $searchBar.value;
     getAnimeByName(data.searchText);
-    $ul.appendChild(searchResults());
   }
 }
 
@@ -31,6 +30,9 @@ function getAnimeByName(search) {
       useableData.summary = searchData.data[i].synopsis;
       useableData.episodes = searchData.data[i].episodes;
       data.searchResults.push(useableData);
+    }
+    for (var e = 0; e < data.searchResults.length; e++) {
+      $ul.appendChild(searchResults(data.searchResults[e]));
     }
   });
   xhr.send();
@@ -90,11 +92,6 @@ function searchResults(results) {
 window.addEventListener('DOMContentLoaded', handleUloadEvent);
 
 function handleUloadEvent(event) {
-  // if ($liNodeList !== 0) {
-  // for (var i = 0; i < $liNodeList.length; i++) {
-  //   $ul.removeChild($liNodeList[i]);
-  // }
-  // }
   for (var e = 0; e < data.searchResults.length; e++) {
     $ul.appendChild(searchResults(data.searchResults[e]));
   }
