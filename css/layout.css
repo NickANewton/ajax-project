@@ -14,7 +14,8 @@
   flex-wrap: wrap;
 }
 
-.col-full {
+.col-full,
+.col-half {
   width: 100%;
 }
 
@@ -23,8 +24,7 @@
     max-width: 720px;
   }
 
-  button.search-button {
-    display: inline;
-    margin-left: 20px;
+  .col-half {
+    width: 50%;
   }
 }

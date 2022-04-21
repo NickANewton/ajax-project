@@ -14,11 +14,11 @@
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="bg-grey">
+<body class="bg-grey font-roboto">
   <header class="bg-blue mb-13">
     <div class="row height-56 container">
       <div class="col-full display-flex align-center text-white">
-        <h1>AniRate</h1>
+        <h1 class="font-alegreya-sans font-size-48">AniRate</h1>
       </div>
     </div>
   </header>
@@ -26,18 +26,24 @@
     <div class="row mb-13">
       <div class="col-full">
         <div>
-          <h3>Anime Search</h3>
+          <h3 class="font-work-sans">Anime Search</h3>
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row mb-13">
       <div class="col-full">
         <form id="search">
           <div class="display-flex align-center">
-            <input required="true" class="search-bar radius-5" type="search" placeholder="Search">
-            <button class="search-button">SEARCH</button>
+            <input required="true" class="search-bar border-radius-5" type="search" placeholder="Search">
+            <button class="mobile-search-btn-hidden desktop-search-btn button-styles-all">SEARCH</button>
           </div>
         </form>
+      </div>
+    </div>
+    <div class="row" data-view="search">
+      <div class="col-full">
+        <ul class="desktop-width-auto mobile-text-center desktop-text-left desktop-display-flex mobile-width-225 margin-0-auto flex-wrap">
+        </ul>
       </div>
     </div>
   </main>
