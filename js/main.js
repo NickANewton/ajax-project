@@ -49,10 +49,12 @@ function searchResults(results) {
   var $divAnimeSearch = document.createElement('div');
   var $animeTitleH4 = document.createElement('h4');
   var $animeSummaryP = document.createElement('p');
+  var $divType = document.createElement('div');
   var $animeTypeHeadingH4 = document.createElement('h4');
-  var $animeTypeP = document.createElement('p');
-  var $numberOfEpsHeadingH4 = document.createElement('h4');
-  var $numberOfEpsP = document.createElement('p');
+  var $animeTypeSpan = document.createElement('span');
+  var $divNumberOfEp = document.createElement('div');
+  var $numberOfEpHeadingH4 = document.createElement('h4');
+  var $numberOfEpSpan = document.createElement('span');
 
   $liAnimeSearch.classList.add('col-half', 'desktop-display-flex', 'mb-13', 'li-styles-all', 'font-size-12');
   $animeImg.classList.add('col-half', 'desktop-margin-0-10', 'border-radius-5', 'box-shadow');
@@ -60,9 +62,10 @@ function searchResults(results) {
   $animeTitleH4.classList.add('font-work-sans', 'font-size-16');
   $animeSummaryP.classList.add('mt-8');
   $animeTypeHeadingH4.classList.add('font-work-sans', 'font-size-16', 'inline');
-  $animeTypeP.classList.add('mt-12', 'inline');
-  $numberOfEpsHeadingH4.classList.add('font-work-sans', 'font-size-16', 'inline');
-  $numberOfEpsP.classList.add('mt-8', 'inline');
+  $animeTypeSpan.classList.add('mt-12', 'inline');
+  $numberOfEpHeadingH4.classList.add('font-work-sans', 'font-size-16', 'inline');
+  $numberOfEpSpan.classList.add('mt-8', 'inline');
+  $divType.classList.add('mt-8');
 
   $animeImg.setAttribute('src', results.imageUrl);
 
@@ -81,18 +84,20 @@ function searchResults(results) {
   }
 
   $animeTypeHeadingH4.textContent = 'Type: ';
-  $animeTypeP.textContent = results.type;
-  $numberOfEpsHeadingH4.textContent = 'Episodes: ';
-  $numberOfEpsP.textContent = results.episodes;
+  $animeTypeSpan.textContent = results.type;
+  $numberOfEpHeadingH4.textContent = 'Episodes: ';
+  $numberOfEpSpan.textContent = results.episodes;
 
   $liAnimeSearch.appendChild($animeImg);
   $liAnimeSearch.appendChild($divAnimeSearch);
   $divAnimeSearch.appendChild($animeTitleH4);
   $divAnimeSearch.appendChild($animeSummaryP);
-  $divAnimeSearch.appendChild($animeTypeHeadingH4);
-  $divAnimeSearch.appendChild($animeTypeP);
-  $divAnimeSearch.appendChild($numberOfEpsHeadingH4);
-  $divAnimeSearch.appendChild($numberOfEpsP);
+  $divType.appendChild($animeTypeHeadingH4);
+  $divType.appendChild($animeTypeSpan);
+  $divAnimeSearch.appendChild($divType);
+  $divNumberOfEp.appendChild($numberOfEpHeadingH4);
+  $divNumberOfEp.appendChild($numberOfEpSpan);
+  $divAnimeSearch.appendChild($divNumberOfEp);
 
   return $liAnimeSearch;
 }
