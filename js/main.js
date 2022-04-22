@@ -17,19 +17,21 @@ $body.addEventListener('submit', handleSearchSubmit);
 
 function handleSearchSubmit(event) {
   event.preventDefault();
-  data.searchResults = [];
   if (event.target === $searchForm) {
     data.searchText = $searchBar.value;
     getAnimeByName(data.searchText);
   }
   if (event.target === $reviewForm) {
+    var reviewRating = getRating();
     var form = {
       reviewTitle: $reviewTitle.value,
       reviewText: $reviewText.value,
       reviewID: data.nextReviewId,
       animeImg: $animeImgReview.getAttribute('src'),
-      animeTitle: $animeTitleReview.textContent
+      animeTitle: $animeTitleReview.textContent,
+      reviewRating: reviewRating
     };
+    viewSwap('search');
     data.reviews.unshift(form);
     data.nextReviewId++;
     $reviewForm.reset();
@@ -41,6 +43,7 @@ function getAnimeByName(search) {
   xhr.open('GET', 'https://api.jikan.moe/v4/anime?q=' + search + '&sfw=true&limit=20');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
+    data.searchResults = [];
     var searchData = xhr.response;
     for (var i = 0; i < searchData.data.length; i++) {
       var useableData = {};
@@ -133,12 +136,14 @@ function handleUloadEvent(event) {
   for (var e = 0; e < data.searchResults.length; e++) {
     $ul.appendChild(searchResults(data.searchResults[e]));
   }
+  viewSwap(data.view);
 }
 
 function viewSwap(view) {
   for (var i = 0; i < $viewNodeList.length; i++) {
     if (view === $viewNodeList[i].getAttribute('data-view')) {
       $viewNodeList[i].classList.remove('hidden');
+      data.view = $viewNodeList[i].getAttribute('data-view');
     } else {
       $viewNodeList[i].classList.add('hidden');
     }
@@ -164,21 +169,27 @@ function getCurrentAnime(reviewButton) {
   }
 }
 
-$starDiv.addEventListener('click', getRating);
+$starDiv.addEventListener('click', setRating);
 
-function getRating(event) {
+function setRating(event) {
   if (event.target.matches('i')) {
+    var currentStarId = event.target.getAttribute('data-star-id');
     for (var i = 1; i < $starIconNodeList.length; i++) {
-      if (event.target.getAttribute('data-id') === $starIconNodeList[i].getAttribute('data-id') && $starIconNodeList[i - 1].classList.contains('fas')) {
-        $starIconNodeList[i].classList.remove('far');
-        $starIconNodeList[i].classList.add('fas');
+      if (i <= currentStarId) {
+        $starIconNodeList[i].classList.replace('far', 'fas');
+      } else {
+        $starIconNodeList[i].classList.replace('fas', 'far');
       }
     }
-    // for (var e = $starIconNodeList.length; e > 0; e--) {
-    //   if (Number(event.target.getAttribute('data-id')) === e && (event.target.classList.contains('fas'))) {
-    //     event.target.classList.remove('fas');
-    //     event.target.classList.add('far');
-    //   }
-    // }
   }
+}
+
+function getRating() {
+  var starCount = 1;
+  for (var i = 1; i < $starIconNodeList.length; i++) {
+    if ($starIconNodeList[i].classList.contains('fas')) {
+      starCount++;
+    }
+  }
+  return starCount;
 }
