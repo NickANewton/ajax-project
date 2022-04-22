@@ -1,9 +1,10 @@
 /* exported data */
 
 var data = {
+  view: 'search',
   searchText: null,
   searchResults: [],
-  reviewForm: [],
+  reviews: [],
   nextReviewId: 1
 };
 

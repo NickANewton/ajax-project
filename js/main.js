@@ -9,7 +9,8 @@ var $viewNodeList = document.querySelectorAll('.view');
 var $searchDiv = document.querySelector('#search');
 var $animeImgReview = document.querySelector('#animeImgReview');
 var $animeTitleReview = document.querySelector('#animeTitleReview');
-// var $starIconNodeList = document.querySelectorAll('.star');
+var $starIconNodeList = document.querySelectorAll('.star');
+var $starDiv = document.querySelector('#starDiv');
 var btnId = -1;
 
 $body.addEventListener('submit', handleSearchSubmit);
@@ -22,7 +23,14 @@ function handleSearchSubmit(event) {
     getAnimeByName(data.searchText);
   }
   if (event.target === $reviewForm) {
-    data.reviewForm.prepend(getReview());
+    var form = {
+      reviewTitle: $reviewTitle.value,
+      reviewText: $reviewText.value,
+      reviewID: data.nextReviewId,
+      animeImg: $animeImgReview.getAttribute('src'),
+      animeTitle: $animeTitleReview.textContent
+    };
+    data.reviews.unshift(form);
     data.nextReviewId++;
     $reviewForm.reset();
   }
@@ -47,6 +55,7 @@ function getAnimeByName(search) {
     while ($ul.firstChild) {
       $ul.removeChild($ul.firstChild);
     }
+    btnId = -1;
     for (var e = 0; e < data.searchResults.length; e++) {
       $ul.appendChild(searchResults(data.searchResults[e]));
     }
@@ -126,15 +135,6 @@ function handleUloadEvent(event) {
   }
 }
 
-function getReview() {
-  var form = {
-    reviewTitle: $reviewTitle.value,
-    reviewText: $reviewText.value,
-    reviewID: data.nextReviewId
-  };
-  return form;
-}
-
 function viewSwap(view) {
   for (var i = 0; i < $viewNodeList.length; i++) {
     if (view === $viewNodeList[i].getAttribute('data-view')) {
@@ -164,10 +164,21 @@ function getCurrentAnime(reviewButton) {
   }
 }
 
-// function getRating(event) {
-//   if (event.target.matches('i')) {
-//     for (var i = 0; i < $starIconNodeList.length; i++) {
+$starDiv.addEventListener('click', getRating);
 
-//     }
-//   }
-// }
+function getRating(event) {
+  if (event.target.matches('i')) {
+    for (var i = 1; i < $starIconNodeList.length; i++) {
+      if (event.target.getAttribute('data-id') === $starIconNodeList[i].getAttribute('data-id') && $starIconNodeList[i - 1].classList.contains('fas')) {
+        $starIconNodeList[i].classList.remove('far');
+        $starIconNodeList[i].classList.add('fas');
+      }
+    }
+    // for (var e = $starIconNodeList.length; e > 0; e--) {
+    //   if (Number(event.target.getAttribute('data-id')) === e && (event.target.classList.contains('fas'))) {
+    //     event.target.classList.remove('fas');
+    //     event.target.classList.add('far');
+    //   }
+    // }
+  }
+}
