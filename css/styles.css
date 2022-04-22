@@ -54,6 +54,10 @@ p {
   font-size: 12px;
 }
 
+.display-block {
+  display: block;
+}
+
 .bg-blue {
   background-color: #5e86dd;
 }
@@ -74,6 +78,18 @@ p {
   justify-content: center;
 }
 
+.space-between {
+  justify-content: space-around;
+}
+
+.space-around {
+  justify-content: space-around;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
 .text-white {
   color: white;
 }
@@ -92,9 +108,24 @@ p {
   padding: 6px 12px;
   width: 100%;
   letter-spacing: 0.6px;
-  font-size: 16px;
   font-weight: 100;
+}
+
+.text-color-grey {
   color: #6c757d;
+}
+
+.text-area {
+  height: 191px;
+  width: 100%;
+  letter-spacing: 0.6px;
+  font-weight: 100;
+  border: 1px solid #ced4da;
+  padding: 5px;
+}
+
+.text-right {
+  text-align: right;
 }
 
 .mobile-search-btn-hidden {
@@ -111,6 +142,12 @@ p {
 
 .inline {
   display: inline;
+}
+
+.mobile-review-img {
+  height: 250px;
+  width: 150px;
+  object-fit: cover;
 }
 
 @media screen and (min-width: 768px) {
@@ -138,6 +175,19 @@ p {
 
   .desktop-text-left {
     text-align: left;
+  }
+
+  .desktop-align-left {
+    align-items: flex-start;
+  }
+
+  .desktop-review-img {
+    height: auto;
+    object-fit: none;
+  }
+
+  .desktop-review-img-div {
+    width: max-content;
   }
 }
 

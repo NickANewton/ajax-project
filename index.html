@@ -4,8 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AJAX Project</title>
+  <link rel="stylesheet" crossorigin="anonymous"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
   <link
     href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@100;300;400&family=Roboto:wght@100;300;400&family=Work+Sans:wght@600&display=swap"
     rel="stylesheet">
@@ -23,28 +26,76 @@
     </div>
   </header>
   <main class="container">
-    <div class="row mb-13">
-      <div class="col-full">
-        <div>
-          <h3 class="font-work-sans">Anime Search</h3>
+    <div class="view" data-view="search">
+      <div class="row mb-13">
+        <div class="col-full">
+          <div>
+            <h3 class="font-work-sans">Anime Search</h3>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-13">
+        <div class="col-full">
+          <form id="searchForm">
+            <div class="display-flex align-center">
+              <input required="true" class="search-bar border-radius-5 font-size-16 text-color-grey" type="search" placeholder="Search">
+              <button class="mobile-search-btn-hidden desktop-search-btn button-styles-all">SEARCH</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div id="search">
+        <div class="row">
+          <div class="col-full">
+            <ul class="desktop-width-auto mobile-text-center desktop-text-left desktop-display-flex mobile-width-225 margin-0-auto flex-wrap">
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-    <div class="row mb-13">
-      <div class="col-full">
-        <form id="search">
-          <div class="display-flex align-center">
-            <input required="true" class="search-bar border-radius-5" type="search" placeholder="Search">
-            <button class="mobile-search-btn-hidden desktop-search-btn button-styles-all">SEARCH</button>
+    <div class="view hidden" data-view="review-form">
+      <div class="row">
+        <div class="col-full">
+          <h3 class="font-work-sans">New Review</h3>
+        </div>
+      </div>
+      <form id="review">
+        <div class="row">
+          <div class="col-half">
+            <div class="mt-12  mb-13 desktop-review-img-div display-flex justify-center">
+              <img id="animeImgReview" class="border-radius-5 box-shadow mobile-review-img desktop-review-img desktop-width-auto" src="" alt="">
+            </div>
           </div>
-        </form>
-      </div>
-    </div>
-    <div class="row" data-view="search">
-      <div class="col-full">
-        <ul class="desktop-width-auto mobile-text-center desktop-text-left desktop-display-flex mobile-width-225 margin-0-auto flex-wrap">
-        </ul>
-      </div>
+          <div class="col-half display-flex flex-column space-around">
+            <div class="mobile-text-center desktop-text-left">
+              <h4 id="animeTitleReview" class="font-work-sans font-size-16"></h4>
+            </div>
+            <div class="font-size-16 mobile-text-center desktop-text-left">
+              <h3 class="font-work-sans font-size-16 mt-12">Rating</h3>
+              <div id="starDiv" class="mt-12 mb-13">
+                <i class="fas fa-star fa-2x star" data-star-id="0"></i>
+                <i class="far fa-star fa-2x star" data-star-id="1"></i>
+                <i class="far fa-star fa-2x star" data-star-id="2"></i>
+                <i class="far fa-star fa-2x star" data-star-id="3"></i>
+                <i class="far fa-star fa-2x star" data-star-id="4"></i>
+              </div>
+            </div>
+            <div>
+              <label for="review-title" class="font-work-sans font-size-16">Title</label>
+              <input required="true" id="review-title" type="text" class="search-bar border-radius-5 mt-12 font-size-12 ">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-full mt-12">
+            <label for="review-text" class="font-work-sans font-size-16">Review</label>
+            <textarea name="review-text" id="review-text" class="text-area border-radius-5 mt-12 font-roboto font-size-12 " required="true"></textarea>
+            <div class="text-right">
+              <button class="button-styles-all box-shadow mt-12">SAVE</button>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
   </main>
   <script src="js/data.js"></script>

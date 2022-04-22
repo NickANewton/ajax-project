@@ -1,8 +1,12 @@
 /* exported data */
 
 var data = {
+  view: 'search',
   searchText: null,
-  searchResults: []
+  searchResults: [],
+  reviews: [],
+  nextReviewId: 1,
+  reviewAnimeId: null
 };
 
 var previousDataJSON = JSON.parse(localStorage.getItem('user-data'));
