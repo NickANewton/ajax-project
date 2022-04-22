@@ -35,7 +35,7 @@
     </div>
     <div class="row mb-13 hidden">
       <div class="col-full">
-        <form id="search">
+        <form id="searchForm">
           <div class="display-flex align-center">
             <input required="true" class="search-bar border-radius-5" type="search" placeholder="Search">
             <button class="mobile-search-btn-hidden desktop-search-btn button-styles-all">SEARCH</button>
@@ -43,8 +43,8 @@
         </form>
       </div>
     </div>
-    <div class="view" data-view="search">
-      <div class="row" data-view="search">
+    <div id="search" class="view" data-view="search">
+      <div class="row">
         <div class="col-full">
           <ul class="desktop-width-auto mobile-text-center desktop-text-left desktop-display-flex mobile-width-225 margin-0-auto flex-wrap">
           </ul>
@@ -57,7 +57,7 @@
           <h3 class="font-work-sans">New Review</h3>
         </div>
       </div>
-      <form>
+      <form id="review">
         <div class="row">
           <div class="col-half">
             <div class="mt-12  mb-13 desktop-review-img-div display-flex justify-center">
@@ -87,7 +87,7 @@
         <div class="row">
           <div class="col-full mt-12">
             <label for="review-text" class="font-work-sans font-size-16">Review</label>
-            <textarea name="review-text" id="review-tex" class="text-area border-radius-5 mt-12" required="true"></textarea>
+            <textarea name="review-text" id="review-text" class="text-area border-radius-5 mt-12" required="true"></textarea>
             <div class="text-right">
               <button class="button-styles-all box-shadow mt-12">SAVE</button>
             </div>

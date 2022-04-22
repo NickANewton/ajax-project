@@ -1,7 +1,13 @@
 var $body = document.querySelector('body');
 var $searchBar = document.querySelector('.search-bar');
-var $searchForm = document.querySelector('#search');
+var $searchForm = document.querySelector('#searchForm');
+var $reviewForm = document.querySelector('#review');
 var $ul = document.querySelector('ul');
+var $reviewTitle = document.querySelector('#review-title');
+var $reviewText = document.querySelector('#review-text');
+var $viewNodeList = document.querySelector('.view');
+// var $reviewBtnNodeList = document.querySelectorAll('review-btn');
+var $searchDiv = document.querySelector('#search');
 
 $body.addEventListener('submit', handleSearchSubmit);
 
@@ -11,6 +17,11 @@ function handleSearchSubmit(event) {
   if (event.target === $searchForm) {
     data.searchText = $searchBar.value;
     getAnimeByName(data.searchText);
+  }
+  if (event.target === $reviewForm) {
+    data.reviewForm.prepend(getReview());
+    data.nextReviewId++;
+    $reviewForm.reset();
   }
 }
 
@@ -52,7 +63,7 @@ function searchResults(results) {
   var $divNumberOfEp = document.createElement('div');
   var $numberOfEpHeadingH4 = document.createElement('h4');
   var $numberOfEpSpan = document.createElement('span');
-  var $reviewbtn = document.createElement('button');
+  var $reviewBtn = document.createElement('button');
 
   $liAnimeSearch.classList.add('col-half', 'desktop-display-flex', 'mb-13', 'li-styles-all', 'font-size-12');
   $animeImg.classList.add('col-half', 'desktop-margin-0-10', 'border-radius-5', 'box-shadow');
@@ -63,7 +74,7 @@ function searchResults(results) {
   $numberOfEpHeadingH4.classList.add('font-work-sans', 'font-size-16', 'inline');
   $numberOfEpSpan.classList.add('mt-8', 'inline');
   $divType.classList.add('mt-8');
-  $reviewbtn.classList.add('button-styles-all', 'box-shadow', 'mt-8');
+  $reviewBtn.classList.add('button-styles-all', 'box-shadow', 'mt-8', 'review-btn');
 
   $animeImg.setAttribute('src', results.imageUrl);
 
@@ -85,7 +96,7 @@ function searchResults(results) {
   $animeTypeSpan.textContent = results.type;
   $numberOfEpHeadingH4.textContent = 'Episodes: ';
   $numberOfEpSpan.textContent = results.episodes;
-  $reviewbtn.textContent = 'REVIEW';
+  $reviewBtn.textContent = 'REVIEW';
 
   $liAnimeSearch.appendChild($animeImg);
   $liAnimeSearch.appendChild($divAnimeSearch);
@@ -97,7 +108,7 @@ function searchResults(results) {
   $divNumberOfEp.appendChild($numberOfEpHeadingH4);
   $divNumberOfEp.appendChild($numberOfEpSpan);
   $divAnimeSearch.appendChild($divNumberOfEp);
-  $divAnimeSearch.appendChild($reviewbtn);
+  $divAnimeSearch.appendChild($reviewBtn);
 
   return $liAnimeSearch;
 }
@@ -107,5 +118,32 @@ window.addEventListener('DOMContentLoaded', handleUloadEvent);
 function handleUloadEvent(event) {
   for (var e = 0; e < data.searchResults.length; e++) {
     $ul.appendChild(searchResults(data.searchResults[e]));
+  }
+}
+
+function getReview() {
+  var form = {
+    reviewTitle: $reviewTitle.value,
+    reviewText: $reviewText.value,
+    reviewID: data.nextReviewId
+  };
+  return form;
+}
+
+function viewSwap(view) {
+  for (var i = 0; i < $viewNodeList.length; i++) {
+    if (view === $viewNodeList[i].getAttribute('data-view')) {
+      $viewNodeList[i].classList.remove('hidden');
+    } else {
+      $viewNodeList[i].clasList.add('hidden');
+    }
+  }
+}
+
+$searchDiv.addEventListener('click', showNewReview);
+
+function showNewReview() {
+  if (event.target.classList.contains('new-review')) {
+    viewSwap('review-form');
   }
 }

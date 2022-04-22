@@ -2,7 +2,9 @@
 
 var data = {
   searchText: null,
-  searchResults: []
+  searchResults: [],
+  reviewForm: [],
+  nextReviewId: 1
 };
 
 var previousDataJSON = JSON.parse(localStorage.getItem('user-data'));
