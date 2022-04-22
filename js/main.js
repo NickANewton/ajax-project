@@ -130,21 +130,21 @@ function searchResults(results) {
   return $liAnimeSearch;
 }
 
-window.addEventListener('DOMContentLoaded', handleUloadEvent);
+// window.addEventListener('DOMContentLoaded', handleUloadEvent);
 
-function handleUloadEvent(event) {
-  for (var e = 0; e < data.searchResults.length; e++) {
-    $ul.appendChild(searchResults(data.searchResults[e]));
-  }
-  if (data.view === 'review-form') {
-    $animeImgReview.setAttribute('src', data.searchResults[data.reviewAnimeId].imageUrl);
-    $animeTitleReview.textContent = data.searchResults[data.reviewAnimeId].titleEnglish;
-    if (data.searchResults[data.reviewAnimeId].titleEnglish === null) {
-      $animeTitleReview.textContent = data.searchResults[data.reviewAnimeId].title;
-    }
-  }
-  viewSwap(data.view);
-}
+// function handleUloadEvent(event) {
+//   for (var e = 0; e < data.searchResults.length; e++) {
+//     $ul.appendChild(searchResults(data.searchResults[e]));
+//   }
+//   if (data.view === 'review-form') {
+//     $animeImgReview.setAttribute('src', data.searchResults[data.reviewAnimeId].imageUrl);
+//     $animeTitleReview.textContent = data.searchResults[data.reviewAnimeId].titleEnglish;
+//     if (data.searchResults[data.reviewAnimeId].titleEnglish === null) {
+//       $animeTitleReview.textContent = data.searchResults[data.reviewAnimeId].title;
+//     }
+//   }
+//   viewSwap(data.view);
+// }
 
 function viewSwap(view) {
   for (var i = 0; i < $viewNodeList.length; i++) {
