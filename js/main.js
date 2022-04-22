@@ -91,7 +91,7 @@ function searchResults(results) {
   $numberOfEpSpan.classList.add('mt-8', 'inline');
   $divType.classList.add('mt-8');
   $reviewBtn.classList.add('button-styles-all', 'box-shadow', 'mt-8', 'review-btn');
-  $reviewBtn.dataset.id = btnId;
+  $reviewBtn.dataset.reviewBtnId = btnId;
 
   $animeImg.setAttribute('src', results.imageUrl);
 
@@ -136,6 +136,13 @@ function handleUloadEvent(event) {
   for (var e = 0; e < data.searchResults.length; e++) {
     $ul.appendChild(searchResults(data.searchResults[e]));
   }
+  if (data.view === 'review-form') {
+    $animeImgReview.setAttribute('src', data.searchResults[data.reviewAnimeId].imageUrl);
+    $animeTitleReview.textContent = data.searchResults[data.reviewAnimeId].titleEnglish;
+    if (data.searchResults[data.reviewAnimeId].titleEnglish === null) {
+      $animeTitleReview.textContent = data.searchResults[data.reviewAnimeId].title;
+    }
+  }
   viewSwap(data.view);
 }
 
@@ -160,8 +167,8 @@ function showNewReview(event) {
 }
 
 function getCurrentAnime(reviewButton) {
-  var currentBtnId = reviewButton.getAttribute('data-id');
-  currentBtnId = Number(currentBtnId);
+  var currentBtnId = reviewButton.getAttribute('data-review-btn-id');
+  data.reviewAnimeId = currentBtnId;
   $animeImgReview.setAttribute('src', data.searchResults[currentBtnId].imageUrl);
   $animeTitleReview.textContent = data.searchResults[currentBtnId].titleEnglish;
   if (data.searchResults[currentBtnId].titleEnglish === null) {
