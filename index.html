@@ -26,32 +26,34 @@
     </div>
   </header>
   <main class="container">
-    <div class="row mb-13 hidden">
-      <div class="col-full">
-        <div>
-          <h3 class="font-work-sans">Anime Search</h3>
-        </div>
-      </div>
-    </div>
-    <div class="row mb-13 hidden">
-      <div class="col-full">
-        <form id="searchForm">
-          <div class="display-flex align-center">
-            <input required="true" class="search-bar border-radius-5" type="search" placeholder="Search">
-            <button class="mobile-search-btn-hidden desktop-search-btn button-styles-all">SEARCH</button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div id="search" class="view" data-view="search">
-      <div class="row">
+    <div class="view" data-view="search">
+      <div class="row mb-13">
         <div class="col-full">
-          <ul class="desktop-width-auto mobile-text-center desktop-text-left desktop-display-flex mobile-width-225 margin-0-auto flex-wrap">
-          </ul>
+          <div>
+            <h3 class="font-work-sans">Anime Search</h3>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-13">
+        <div class="col-full">
+          <form id="searchForm">
+            <div class="display-flex align-center">
+              <input required="true" class="search-bar border-radius-5" type="search" placeholder="Search">
+              <button class="mobile-search-btn-hidden desktop-search-btn button-styles-all">SEARCH</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div id="search">
+        <div class="row">
+          <div class="col-full">
+            <ul class="desktop-width-auto mobile-text-center desktop-text-left desktop-display-flex mobile-width-225 margin-0-auto flex-wrap">
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-    <div class="view" data-view="review-form">
+    <div class="view hidden" data-view="review-form">
       <div class="row">
         <div class="col-full">
           <h3 class="font-work-sans">New Review</h3>
@@ -61,21 +63,21 @@
         <div class="row">
           <div class="col-half">
             <div class="mt-12  mb-13 desktop-review-img-div display-flex justify-center">
-              <img class="border-radius-5 box-shadow mobile-review-img desktop-review-img desktop-width-auto" src="images/hunterxhunter.jpeg" alt="">
+              <img id="animeImgReview" class="border-radius-5 box-shadow mobile-review-img desktop-review-img desktop-width-auto" src="images/hunterxhunter.jpeg" alt="">
             </div>
           </div>
           <div class="col-half display-flex flex-column space-around">
             <div class="mobile-text-center desktop-text-left">
-              <h4 class="font-work-sans font-size-16">Hunter x Hunter (2011)</h4>
+              <h4 id="animeTitleReview" class="font-work-sans font-size-16">Hunter x Hunter (2011)</h4>
             </div>
             <div class="font-size-16 mobile-text-center desktop-text-left">
               <h3 class="font-work-sans font-size-16 mt-12">Rating</h3>
               <div class="mt-12 mb-13">
-                <i class="far fa-star fa-2x"></i>
-                <i class="far fa-star fa-2x"></i>
-                <i class="far fa-star fa-2x"></i>
-                <i class="far fa-star fa-2x"></i>
-                <i class="far fa-star fa-2x"></i>
+                <i class="far fa-star fa-2x star" data-id="1"></i>
+                <i class="far fa-star fa-2x star" data-id="2"></i>
+                <i class="far fa-star fa-2x star" data-id="3"></i>
+                <i class="far fa-star fa-2x star" data-id="4"></i>
+                <i class="far fa-star fa-2x star" data-id="5"></i>
               </div>
             </div>
             <div>

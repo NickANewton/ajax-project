@@ -5,9 +5,12 @@ var $reviewForm = document.querySelector('#review');
 var $ul = document.querySelector('ul');
 var $reviewTitle = document.querySelector('#review-title');
 var $reviewText = document.querySelector('#review-text');
-var $viewNodeList = document.querySelector('.view');
-// var $reviewBtnNodeList = document.querySelectorAll('review-btn');
+var $viewNodeList = document.querySelectorAll('.view');
 var $searchDiv = document.querySelector('#search');
+var $animeImgReview = document.querySelector('#animeImgReview');
+var $animeTitleReview = document.querySelector('#animeTitleReview');
+// var $starIconNodeList = document.querySelectorAll('.star');
+var btnId = -1;
 
 $body.addEventListener('submit', handleSearchSubmit);
 
@@ -52,6 +55,7 @@ function getAnimeByName(search) {
 }
 
 function searchResults(results) {
+  btnId++;
   var $liAnimeSearch = document.createElement('li');
   var $animeImg = document.createElement('img');
   var $divAnimeSearch = document.createElement('div');
@@ -75,6 +79,7 @@ function searchResults(results) {
   $numberOfEpSpan.classList.add('mt-8', 'inline');
   $divType.classList.add('mt-8');
   $reviewBtn.classList.add('button-styles-all', 'box-shadow', 'mt-8', 'review-btn');
+  $reviewBtn.dataset.id = btnId;
 
   $animeImg.setAttribute('src', results.imageUrl);
 
@@ -135,15 +140,34 @@ function viewSwap(view) {
     if (view === $viewNodeList[i].getAttribute('data-view')) {
       $viewNodeList[i].classList.remove('hidden');
     } else {
-      $viewNodeList[i].clasList.add('hidden');
+      $viewNodeList[i].classList.add('hidden');
     }
   }
 }
 
 $searchDiv.addEventListener('click', showNewReview);
 
-function showNewReview() {
-  if (event.target.classList.contains('new-review')) {
+function showNewReview(event) {
+  if (event.target.textContent === 'REVIEW') {
+    getCurrentAnime(event.target);
     viewSwap('review-form');
   }
 }
+
+function getCurrentAnime(reviewButton) {
+  var currentBtnId = reviewButton.getAttribute('data-id');
+  currentBtnId = Number(currentBtnId);
+  $animeImgReview.setAttribute('src', data.searchResults[currentBtnId].imageUrl);
+  $animeTitleReview.textContent = data.searchResults[currentBtnId].titleEnglish;
+  if (data.searchResults[currentBtnId].titleEnglish === null) {
+    $animeTitleReview.textContent = data.searchResults[currentBtnId].title;
+  }
+}
+
+// function getRating(event) {
+//   if (event.target.matches('i')) {
+//     for (var i = 0; i < $starIconNodeList.length; i++) {
+
+//     }
+//   }
+// }
