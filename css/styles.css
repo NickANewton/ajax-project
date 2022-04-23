@@ -170,6 +170,14 @@ p {
   padding: 12px;
 }
 
+.text-decor-none {
+  text-decoration: none;
+}
+
+.align-baseline {
+  align-items: baseline;
+}
+
 @media screen and (min-width: 768px) {
   .desktop-display-flex {
     display: flex;
@@ -183,9 +191,16 @@ p {
     margin: 0 10px;
   }
 
-  .desktop-search-btn {
+  .desktop-display-inline {
     display: inline;
+  }
+
+  .desktop-search-btn {
     border-radius: 2px;
+    margin-left: 20px;
+  }
+
+  .margin-left {
     margin-left: 20px;
   }
 
