@@ -19,12 +19,12 @@
 </head>
 <body class="bg-grey font-roboto">
   <header class="bg-blue mb-13">
-    <div class="row height-56 container display-flex">
+    <div class="row height-56 container">
       <div class="col-full display-flex align-baseline text-white">
         <div>
           <h1 class="font-alegreya-sans font-size-48">AniRate</h1>
         </div>
-        <div class="font-work-sans font-size-16 margin-left">
+        <div class="font-work-sans font-size-16 margin-left mobile-hidden desktop-display-inline">
           <a href="#" data-view="search" class="text-decor-none text-white">Search</a>
           <a href="#" data-view="reviews" class="text-decor-none text-white margin-left">Reviews</a>
         </div>
@@ -45,7 +45,7 @@
           <form id="searchForm">
             <div class="display-flex align-center">
               <input required="true" class="search-bar border-radius-5 font-size-16 text-color-grey" type="search" placeholder="Search">
-              <button class="mobile-search-btn-hidden desktop-search-btn button-styles-all desktop-displan-inline">SEARCH</button>
+              <button class="mobile-hidden desktop-search-btn button-styles-all desktop-display-inline">SEARCH</button>
             </div>
           </form>
         </div>
@@ -146,6 +146,20 @@
         </div>
       </div>
   </main>
+  <footer>
+    <div class="row desktop-hidden">
+      <div class="col-full bottom-nav background-white">
+        <ul class="display-flex space-around mobile-text-center height-56 align-center font-size-26 li-styles-all">
+          <li data-view="search">
+            <i class="fas fa-search text-color-blue"></i>
+            <h5 class="font-size-16">Search</h5>
+          </li>
+          <li data-view="reviews">
+            <i class="fas fa-list"></i>
+            <h5 class="font-size-16">Reviews</h5>
+          </li>
+      </div>
+  </footer>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>

@@ -15,6 +15,10 @@ p {
   font-size: 16px;
 }
 
+.font-size-26 {
+  font-size: 26px;
+}
+
 .button-styles-all {
   width: 85px;
   height: 30px;
@@ -24,6 +28,10 @@ p {
   font-weight: 100;
   font-size: 12px;
   letter-spacing: 1px;
+}
+
+.text-color-blue {
+  color: #5e86dd;
 }
 
 .lh-18 {
@@ -136,7 +144,7 @@ p {
   text-align: right;
 }
 
-.mobile-search-btn-hidden {
+.mobile-hidden {
   display: none;
 }
 
@@ -162,6 +170,10 @@ p {
   background-color: white;
 }
 
+.position-fixed {
+  position: fixed;
+}
+
 .mobile-width-335 {
   width: 335px;
 }
@@ -176,6 +188,11 @@ p {
 
 .align-baseline {
   align-items: baseline;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
 }
 
 @media screen and (min-width: 768px) {
@@ -223,6 +240,10 @@ p {
 
   .desktop-review-img-div {
     width: max-content;
+  }
+
+  .desktop-hidden {
+    display: none;
   }
 }
 
