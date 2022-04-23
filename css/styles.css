@@ -26,6 +26,14 @@ p {
   letter-spacing: 1px;
 }
 
+.lh-18 {
+  line-height: 18px;
+}
+
+.mt-15 {
+  margin-top: 15px;
+}
+
 .box-shadow {
   box-shadow: 1px 3px 3px rgb(0 0 0 / 30%);
 }
