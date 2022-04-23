@@ -26,7 +26,7 @@
     </div>
   </header>
   <main class="container">
-    <div class="view hidden" data-view="search">
+    <div class="view" data-view="search">
       <div class="row mb-13">
         <div class="col-full">
           <div>
@@ -47,7 +47,7 @@
       <div id="search">
         <div class="row">
           <div class="col-full">
-            <ul class="desktop-width-auto mobile-text-center desktop-text-left desktop-display-flex mobile-width-225 margin-0-auto flex-wrap">
+            <ul id="anmieResultsUl" class="desktop-width-auto mobile-text-center desktop-text-left desktop-display-flex mobile-width-225 margin-0-auto flex-wrap">
             </ul>
           </div>
         </div>
@@ -97,7 +97,7 @@
         </div>
       </form>
     </div>
-    <div class="view" data-view="reviews">
+    <div class="view hidden" data-view="reviews">
       <div class="row mb-13">
         <div class="col-full">
           <h3 class="font-work-sans">My Reviews</h3>
@@ -105,9 +105,9 @@
       </div>
       <div class="row">
         <div class="col-full">
-          <ul
+          <ul id="reviewUl"
             class="desktop-width-auto desktop-display-flex mobile-width-335 margin-0-auto flex-wrap">
-            <li class=" col-full desktop-display-flex mb-13 li-styles-all font-size-12 background-white border-radius-5 box-shadow padding-12">
+            <li class="col-full desktop-display-flex mb-13 li-styles-all font-size-12 background-white border-radius-5 box-shadow padding-12">
               <div class="col-half display-flex justify-center align-center">
                 <img class="desktop-margin-0-10 border-radius-5 box-shadow mobile-review-img desktop-review-img desktop-width-auto" src="images/hunterxhunter.jpeg" alt="">
               </div>
