@@ -2,7 +2,7 @@ var $body = document.querySelector('body');
 var $searchBar = document.querySelector('.search-bar');
 var $searchForm = document.querySelector('#searchForm');
 var $reviewForm = document.querySelector('#review');
-var $ulAnimeResults = document.querySelector('#animeResultsUl');
+var $ulAnimeResults = document.querySelector('#anmieResultsUl');
 var $ulReviews = document.querySelector('#reviewUl');
 var $reviewTitle = document.querySelector('#review-title');
 var $reviewText = document.querySelector('#review-text');
@@ -13,6 +13,7 @@ var $animeTitleReview = document.querySelector('#animeTitleReview');
 var $starIconNodeList = document.querySelectorAll('.star');
 var $starDiv = document.querySelector('#starDiv');
 var btnId = -1;
+var $iconFooterNodeList = document.querySelectorAll('.icon-footer');
 
 $body.addEventListener('submit', handleSearchSubmit);
 
@@ -81,7 +82,7 @@ function searchResults(results) {
   var $divNumberOfEp = document.createElement('div');
   var $numberOfEpHeadingH4 = document.createElement('h4');
   var $numberOfEpSpan = document.createElement('span');
-  var $reviewBtn = document.createElement('button');
+  var $reviewAnchor = document.createElement('a');
 
   $liAnimeSearch.classList.add('col-half', 'desktop-display-flex', 'mb-13', 'li-styles-all', 'font-size-12');
   $animeImg.classList.add('col-half', 'desktop-margin-0-10', 'border-radius-5', 'box-shadow');
@@ -92,8 +93,10 @@ function searchResults(results) {
   $numberOfEpHeadingH4.classList.add('font-work-sans', 'font-size-16', 'inline');
   $numberOfEpSpan.classList.add('mt-8', 'inline');
   $divType.classList.add('mt-8');
-  $reviewBtn.classList.add('button-styles-all', 'box-shadow', 'mt-8', 'review-btn');
-  $reviewBtn.dataset.reviewBtnId = btnId;
+  $reviewAnchor.classList.add('button-styles-all', 'box-shadow', 'mt-8', 'review-btn', 'font-roboto', 'mobile-text-center', 'padding-8', 'text-decor-none');
+  $reviewAnchor.dataset.reviewBtnId = btnId;
+  $reviewAnchor.dataset.view = 'review-form';
+  $reviewAnchor.setAttribute('href', '#');
 
   $animeImg.setAttribute('src', results.imageUrl);
 
@@ -115,7 +118,7 @@ function searchResults(results) {
   $animeTypeSpan.textContent = results.type;
   $numberOfEpHeadingH4.textContent = 'Episodes: ';
   $numberOfEpSpan.textContent = results.episodes;
-  $reviewBtn.textContent = 'REVIEW';
+  $reviewAnchor.textContent = 'REVIEW';
 
   $liAnimeSearch.appendChild($animeImg);
   $liAnimeSearch.appendChild($divAnimeSearch);
@@ -127,7 +130,7 @@ function searchResults(results) {
   $divNumberOfEp.appendChild($numberOfEpHeadingH4);
   $divNumberOfEp.appendChild($numberOfEpSpan);
   $divAnimeSearch.appendChild($divNumberOfEp);
-  $divAnimeSearch.appendChild($reviewBtn);
+  $divAnimeSearch.appendChild($reviewAnchor);
 
   return $liAnimeSearch;
 }
@@ -235,7 +238,7 @@ function getReviews(form) {
   $imgReview.setAttribute('src', form.animeImg);
   $h4AnimeTitleReview.textContent = form.animeTitle;
   $h3TitleReivew.textContent = form.reviewTitle;
-  $pTextReview.textContent = form.$reviewText;
+  $pTextReview.textContent = form.reviewText;
 
   $liReview.appendChild($imgDivReview);
   $imgDivReview.appendChild($imgReview);
@@ -243,7 +246,7 @@ function getReviews(form) {
   $textDivReview.appendChild($h4AnimeTitleReview);
   $textDivReview.appendChild($starDivReview);
 
-  for (var i = 0; i < data.reviewRating; i++) {
+  for (var i = 0; i < form.reviewRating; i++) {
     $starDivReview.appendChild($starIconReview);
   }
 
@@ -251,4 +254,20 @@ function getReviews(form) {
   $textDivReview.appendChild($pTextReview);
 
   return $liReview;
+}
+
+$body.addEventListener('click', handleAnchorClick);
+
+function handleAnchorClick(event) {
+  var anchorDataView = event.target.getAttribute('data-view');
+  if (event.target.matches('a') || event.target.parentNode.matches('a')) {
+    for (var i = 0; i < $iconFooterNodeList.length; i++) {
+      if ($iconFooterNodeList[i].getAttribute('data-view') === anchorDataView) {
+        $iconFooterNodeList[i].classList.replace('icon-grey', 'icon-blue');
+      } else {
+        $iconFooterNodeList[i].classList.add('icon-blue', 'icon-grey');
+      }
+    }
+    viewSwap(anchorDataView);
+  }
 }
