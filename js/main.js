@@ -33,7 +33,7 @@ function handleSearchSubmit(event) {
       animeTitle: $animeTitleReview.textContent,
       reviewRating: reviewRating
     };
-    getReviews(form);
+    $ulReviews.prepend(getReviews(form));
     viewSwap('reviews');
     data.reviews.unshift(form);
     data.nextReviewId++;
@@ -145,7 +145,7 @@ function handleUloadEvent(event) {
   }
   if (data.view === 'reviews') {
     for (var e = 0; e < data.reviews.length; e++) {
-      $ulReviews.prepend(getReviews(data.reviews[e]));
+      $ulReviews.appendChild(getReviews(data.reviews[e]));
     }
   }
   if (data.view === 'review-form') {
@@ -193,7 +193,7 @@ $starDiv.addEventListener('click', setRating);
 function setRating(event) {
   if (event.target.matches('i')) {
     var currentStarId = event.target.getAttribute('data-star-id');
-    for (var i = 1; i < $starIconNodeList.length; i++) {
+    for (var i = 0; i < $starIconNodeList.length; i++) {
       if (i <= currentStarId) {
         $starIconNodeList[i].classList.replace('far', 'fas');
       } else {
@@ -220,7 +220,6 @@ function getReviews(form) {
   var $textDivReview = document.createElement('div');
   var $h4AnimeTitleReview = document.createElement('h4');
   var $starDivReview = document.createElement('div');
-  var $starIconReview = document.createElement('i');
   var $h3RatingReview = document.createElement('h3');
   var $h3TitleReivew = document.createElement('h3');
   var $pTextReview = document.createElement('p');
@@ -238,6 +237,7 @@ function getReviews(form) {
   $imgReview.setAttribute('src', form.animeImg);
   $h4AnimeTitleReview.textContent = form.animeTitle;
   $h3TitleReivew.textContent = form.reviewTitle;
+  $h3RatingReview.textContent = 'Rating';
   $pTextReview.textContent = form.reviewText;
 
   $liReview.appendChild($imgDivReview);
@@ -246,11 +246,15 @@ function getReviews(form) {
   $textDivReview.appendChild($h4AnimeTitleReview);
   $textDivReview.appendChild($starDivReview);
 
+  $starDivReview.appendChild($h3RatingReview);
+
   for (var i = 0; i < form.reviewRating; i++) {
-    $starDivReview.appendChild($starIconReview);
+    var $newStar = document.createElement('i');
+    $newStar.classList.add('fas', 'fa-star', 'fa-2x');
+    $starDivReview.appendChild($newStar);
   }
 
-  $textDivReview.appendChild($h3RatingReview);
+  $textDivReview.appendChild($h3TitleReivew);
   $textDivReview.appendChild($pTextReview);
 
   return $liReview;
