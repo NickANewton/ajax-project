@@ -138,22 +138,16 @@ function searchResults(results) {
 window.addEventListener('DOMContentLoaded', handleUloadEvent);
 
 function handleUloadEvent(event) {
-  if (data.view === 'search') {
-    for (var i = 0; i < data.searchResults.length; i++) {
-      $ulAnimeResults.appendChild(searchResults(data.searchResults[i]));
-    }
+  for (var i = 0; i < data.searchResults.length; i++) {
+    $ulAnimeResults.appendChild(searchResults(data.searchResults[i]));
   }
-  if (data.view === 'reviews') {
-    for (var e = 0; e < data.reviews.length; e++) {
-      $ulReviews.appendChild(getReviews(data.reviews[e]));
-    }
+  for (var e = 0; e < data.reviews.length; e++) {
+    $ulReviews.appendChild(getReviews(data.reviews[e]));
   }
-  if (data.view === 'review-form') {
-    $animeImgReview.setAttribute('src', data.searchResults[data.reviewAnimeId].imageUrl);
-    $animeTitleReview.textContent = data.searchResults[data.reviewAnimeId].titleEnglish;
-    if (data.searchResults[data.reviewAnimeId].titleEnglish === null) {
-      $animeTitleReview.textContent = data.searchResults[data.reviewAnimeId].title;
-    }
+  $animeImgReview.setAttribute('src', data.searchResults[data.reviewAnimeId].imageUrl);
+  $animeTitleReview.textContent = data.searchResults[data.reviewAnimeId].titleEnglish;
+  if (data.searchResults[data.reviewAnimeId].titleEnglish === null) {
+    $animeTitleReview.textContent = data.searchResults[data.reviewAnimeId].title;
   }
   viewSwap(data.view);
 }
@@ -204,8 +198,8 @@ function setRating(event) {
 }
 
 function getRating() {
-  var starCount = 1;
-  for (var i = 1; i < $starIconNodeList.length; i++) {
+  var starCount = 0;
+  for (var i = 0; i < $starIconNodeList.length; i++) {
     if ($starIconNodeList[i].classList.contains('fas')) {
       starCount++;
     }
@@ -247,6 +241,10 @@ function getReviews(form) {
   $textDivReview.appendChild($starDivReview);
 
   $starDivReview.appendChild($h3RatingReview);
+
+  if (form.reviewRating === 0) {
+    $h3RatingReview.textContent = 'No Rating Given';
+  }
 
   for (var i = 0; i < form.reviewRating; i++) {
     var $newStar = document.createElement('i');
