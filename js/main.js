@@ -263,6 +263,9 @@ $body.addEventListener('click', handleAnchorClick);
 function handleAnchorClick(event) {
   var anchorDataView = event.target.getAttribute('data-view');
   if (event.target.matches('a') || event.target.parentNode.matches('a')) {
+    for (var e = 0; e < $starIconNodeList.length; e++) {
+      $starIconNodeList[e].classList.replace('fas', 'far');
+    }
     for (var i = 0; i < $iconFooterNodeList.length; i++) {
       if ($iconFooterNodeList[i].getAttribute('data-view') === anchorDataView) {
         $iconFooterNodeList[i].classList.replace('icon-grey', 'icon-blue');
