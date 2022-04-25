@@ -2,7 +2,8 @@ var $body = document.querySelector('body');
 var $searchBar = document.querySelector('.search-bar');
 var $searchForm = document.querySelector('#searchForm');
 var $reviewForm = document.querySelector('#review');
-var $ul = document.querySelector('ul');
+var $ulAnimeResults = document.querySelector('#anmieResultsUl');
+var $ulReviews = document.querySelector('#reviewUl');
 var $reviewTitle = document.querySelector('#review-title');
 var $reviewText = document.querySelector('#review-text');
 var $viewNodeList = document.querySelectorAll('.view');
@@ -12,6 +13,7 @@ var $animeTitleReview = document.querySelector('#animeTitleReview');
 var $starIconNodeList = document.querySelectorAll('.star');
 var $starDiv = document.querySelector('#starDiv');
 var btnId = -1;
+var $iconFooterNodeList = document.querySelectorAll('.icon-footer');
 
 $body.addEventListener('submit', handleSearchSubmit);
 
@@ -31,7 +33,8 @@ function handleSearchSubmit(event) {
       animeTitle: $animeTitleReview.textContent,
       reviewRating: reviewRating
     };
-    viewSwap('search');
+    $ulReviews.prepend(getReviews(form));
+    viewSwap('reviews');
     data.reviews.unshift(form);
     data.nextReviewId++;
     $reviewForm.reset();
@@ -55,12 +58,12 @@ function getAnimeByName(search) {
       useableData.episodes = searchData.data[i].episodes;
       data.searchResults.push(useableData);
     }
-    while ($ul.firstChild) {
-      $ul.removeChild($ul.firstChild);
+    while ($ulAnimeResults.firstChild) {
+      $ulAnimeResults.removeChild($ulAnimeResults.firstChild);
     }
     btnId = -1;
     for (var e = 0; e < data.searchResults.length; e++) {
-      $ul.appendChild(searchResults(data.searchResults[e]));
+      $ulAnimeResults.appendChild(searchResults(data.searchResults[e]));
     }
   });
   xhr.send();
@@ -79,7 +82,7 @@ function searchResults(results) {
   var $divNumberOfEp = document.createElement('div');
   var $numberOfEpHeadingH4 = document.createElement('h4');
   var $numberOfEpSpan = document.createElement('span');
-  var $reviewBtn = document.createElement('button');
+  var $reviewAnchor = document.createElement('a');
 
   $liAnimeSearch.classList.add('col-half', 'desktop-display-flex', 'mb-13', 'li-styles-all', 'font-size-12');
   $animeImg.classList.add('col-half', 'desktop-margin-0-10', 'border-radius-5', 'box-shadow');
@@ -90,8 +93,10 @@ function searchResults(results) {
   $numberOfEpHeadingH4.classList.add('font-work-sans', 'font-size-16', 'inline');
   $numberOfEpSpan.classList.add('mt-8', 'inline');
   $divType.classList.add('mt-8');
-  $reviewBtn.classList.add('button-styles-all', 'box-shadow', 'mt-8', 'review-btn');
-  $reviewBtn.dataset.reviewBtnId = btnId;
+  $reviewAnchor.classList.add('button-styles-all', 'box-shadow', 'mt-8', 'review-btn', 'font-roboto', 'mobile-text-center', 'padding-8', 'text-decor-none');
+  $reviewAnchor.dataset.reviewBtnId = btnId;
+  $reviewAnchor.dataset.view = 'review-form';
+  $reviewAnchor.setAttribute('href', '#');
 
   $animeImg.setAttribute('src', results.imageUrl);
 
@@ -113,7 +118,7 @@ function searchResults(results) {
   $animeTypeSpan.textContent = results.type;
   $numberOfEpHeadingH4.textContent = 'Episodes: ';
   $numberOfEpSpan.textContent = results.episodes;
-  $reviewBtn.textContent = 'REVIEW';
+  $reviewAnchor.textContent = 'REVIEW';
 
   $liAnimeSearch.appendChild($animeImg);
   $liAnimeSearch.appendChild($divAnimeSearch);
@@ -125,7 +130,7 @@ function searchResults(results) {
   $divNumberOfEp.appendChild($numberOfEpHeadingH4);
   $divNumberOfEp.appendChild($numberOfEpSpan);
   $divAnimeSearch.appendChild($divNumberOfEp);
-  $divAnimeSearch.appendChild($reviewBtn);
+  $divAnimeSearch.appendChild($reviewAnchor);
 
   return $liAnimeSearch;
 }
@@ -133,15 +138,16 @@ function searchResults(results) {
 window.addEventListener('DOMContentLoaded', handleUloadEvent);
 
 function handleUloadEvent(event) {
-  for (var e = 0; e < data.searchResults.length; e++) {
-    $ul.appendChild(searchResults(data.searchResults[e]));
+  for (var i = 0; i < data.searchResults.length; i++) {
+    $ulAnimeResults.appendChild(searchResults(data.searchResults[i]));
   }
-  if (data.view === 'review-form') {
-    $animeImgReview.setAttribute('src', data.searchResults[data.reviewAnimeId].imageUrl);
-    $animeTitleReview.textContent = data.searchResults[data.reviewAnimeId].titleEnglish;
-    if (data.searchResults[data.reviewAnimeId].titleEnglish === null) {
-      $animeTitleReview.textContent = data.searchResults[data.reviewAnimeId].title;
-    }
+  for (var e = 0; e < data.reviews.length; e++) {
+    $ulReviews.appendChild(getReviews(data.reviews[e]));
+  }
+  $animeImgReview.setAttribute('src', data.searchResults[data.reviewAnimeId].imageUrl);
+  $animeTitleReview.textContent = data.searchResults[data.reviewAnimeId].titleEnglish;
+  if (data.searchResults[data.reviewAnimeId].titleEnglish === null) {
+    $animeTitleReview.textContent = data.searchResults[data.reviewAnimeId].title;
   }
   viewSwap(data.view);
 }
@@ -181,7 +187,7 @@ $starDiv.addEventListener('click', setRating);
 function setRating(event) {
   if (event.target.matches('i')) {
     var currentStarId = event.target.getAttribute('data-star-id');
-    for (var i = 1; i < $starIconNodeList.length; i++) {
+    for (var i = 0; i < $starIconNodeList.length; i++) {
       if (i <= currentStarId) {
         $starIconNodeList[i].classList.replace('far', 'fas');
       } else {
@@ -192,11 +198,81 @@ function setRating(event) {
 }
 
 function getRating() {
-  var starCount = 1;
-  for (var i = 1; i < $starIconNodeList.length; i++) {
+  var starCount = 0;
+  for (var i = 0; i < $starIconNodeList.length; i++) {
     if ($starIconNodeList[i].classList.contains('fas')) {
       starCount++;
     }
   }
   return starCount;
+}
+
+function getReviews(form) {
+  var $liReview = document.createElement('li');
+  var $imgDivReview = document.createElement('div');
+  var $imgReview = document.createElement('img');
+  var $textDivReview = document.createElement('div');
+  var $h4AnimeTitleReview = document.createElement('h4');
+  var $starDivReview = document.createElement('div');
+  var $h3RatingReview = document.createElement('h3');
+  var $h3TitleReivew = document.createElement('h3');
+  var $pTextReview = document.createElement('p');
+
+  $liReview.classList.add('col-full', 'desktop-display-flex', 'mb-13', 'li-styles-all', 'font-size-12', 'background-white', 'border-radius-5', 'box-shadow', 'padding-12');
+  $imgDivReview.classList.add('col-half', 'display-flex', 'justify-center', 'align-center');
+  $imgReview.classList.add('desktop-margin-0-10', 'border-radius-5', 'box-shadow', 'mobile-review-img', 'desktop-review-img', 'desktop-width-auto');
+  $textDivReview.classList.add('col-half', 'desktop-display-flex', 'flex-column', 'space-between', 'mt-12');
+  $h4AnimeTitleReview.classList.add('font-work-sans', 'font-size-16', 'mobile-text-center', 'desktop-text-left');
+  $starDivReview.classList.add('mt-12', 'mb-13', 'mobile-text-center', 'desktop-text-left');
+  $h3RatingReview.classList.add('font-work-sans', 'font-size-16', 'mt-12');
+  $h3TitleReivew.classList.add('font-work-sans', 'font-size-16', 'mt-15');
+  $pTextReview.classList.add('mt-8', 'lh-18');
+
+  $imgReview.setAttribute('src', form.animeImg);
+  $h4AnimeTitleReview.textContent = form.animeTitle;
+  $h3TitleReivew.textContent = form.reviewTitle;
+  $h3RatingReview.textContent = 'Rating';
+  $pTextReview.textContent = form.reviewText;
+
+  $liReview.appendChild($imgDivReview);
+  $imgDivReview.appendChild($imgReview);
+  $liReview.appendChild($textDivReview);
+  $textDivReview.appendChild($h4AnimeTitleReview);
+  $textDivReview.appendChild($starDivReview);
+
+  $starDivReview.appendChild($h3RatingReview);
+
+  if (form.reviewRating === 0) {
+    $h3RatingReview.textContent = 'No Rating Given';
+  }
+
+  for (var i = 0; i < form.reviewRating; i++) {
+    var $newStar = document.createElement('i');
+    $newStar.classList.add('fas', 'fa-star', 'fa-2x');
+    $starDivReview.appendChild($newStar);
+  }
+
+  $textDivReview.appendChild($h3TitleReivew);
+  $textDivReview.appendChild($pTextReview);
+
+  return $liReview;
+}
+
+$body.addEventListener('click', handleAnchorClick);
+
+function handleAnchorClick(event) {
+  var anchorDataView = event.target.getAttribute('data-view');
+  if (event.target.matches('a') || event.target.parentNode.matches('a')) {
+    for (var e = 0; e < $starIconNodeList.length; e++) {
+      $starIconNodeList[e].classList.replace('fas', 'far');
+    }
+    for (var i = 0; i < $iconFooterNodeList.length; i++) {
+      if ($iconFooterNodeList[i].getAttribute('data-view') === anchorDataView) {
+        $iconFooterNodeList[i].classList.replace('icon-grey', 'icon-blue');
+      } else {
+        $iconFooterNodeList[i].classList.add('icon-blue', 'icon-grey');
+      }
+    }
+    viewSwap(anchorDataView);
+  }
 }

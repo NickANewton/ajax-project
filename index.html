@@ -20,8 +20,14 @@
 <body class="bg-grey font-roboto">
   <header class="bg-blue mb-13">
     <div class="row height-56 container">
-      <div class="col-full display-flex align-center text-white">
-        <h1 class="font-alegreya-sans font-size-48">AniRate</h1>
+      <div class="col-full display-flex align-baseline text-white">
+        <div>
+          <h1 class="font-alegreya-sans font-size-48">AniRate</h1>
+        </div>
+        <div class="font-work-sans font-size-16 margin-left mobile-hidden desktop-display-inline">
+          <a href="#" data-view="search" class="text-decor-none text-white">Search</a>
+          <a href="#" data-view="reviews" class="text-decor-none text-white margin-left">Reviews</a>
+        </div>
       </div>
     </div>
   </header>
@@ -39,7 +45,7 @@
           <form id="searchForm">
             <div class="display-flex align-center">
               <input required="true" class="search-bar border-radius-5 font-size-16 text-color-grey" type="search" placeholder="Search">
-              <button class="mobile-search-btn-hidden desktop-search-btn button-styles-all">SEARCH</button>
+              <button class="mobile-hidden desktop-search-btn button-styles-all desktop-display-inline">SEARCH</button>
             </div>
           </form>
         </div>
@@ -47,7 +53,7 @@
       <div id="search">
         <div class="row">
           <div class="col-full">
-            <ul class="desktop-width-auto mobile-text-center desktop-text-left desktop-display-flex mobile-width-225 margin-0-auto flex-wrap">
+            <ul id="anmieResultsUl" class="desktop-width-auto mobile-text-center desktop-text-left desktop-display-flex mobile-width-225 margin-0-auto flex-wrap">
             </ul>
           </div>
         </div>
@@ -73,7 +79,7 @@
             <div class="font-size-16 mobile-text-center desktop-text-left">
               <h3 class="font-work-sans font-size-16 mt-12">Rating</h3>
               <div id="starDiv" class="mt-12 mb-13">
-                <i class="fas fa-star fa-2x star" data-star-id="0"></i>
+                <i class="far fa-star fa-2x star" data-star-id="0"></i>
                 <i class="far fa-star fa-2x star" data-star-id="1"></i>
                 <i class="far fa-star fa-2x star" data-star-id="2"></i>
                 <i class="far fa-star fa-2x star" data-star-id="3"></i>
@@ -97,7 +103,38 @@
         </div>
       </form>
     </div>
+    <div class="view hidden" data-view="reviews">
+      <div class="row mb-13">
+        <div class="col-full">
+          <h3 class="font-work-sans">My Reviews</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-full">
+          <ul id="reviewUl"
+            class="desktop-width-auto desktop-display-flex mobile-width-335 margin-0-auto flex-wrap">
+          </ul>
+        </div>
+      </div>
   </main>
+  <footer>
+    <div class="row desktop-hidden">
+      <div class="col-full bottom-nav background-white">
+        <ul class="display-flex space-around mobile-text-center height-56 align-center font-size-26 li-styles-all">
+          <li data-view="search">
+            <a href="#" class="text-decor-none" data-view="search">
+              <i class="fas fa-search icon-blue icon-footer" data-view="search"></i>
+              <h5 class="font-size-16 text-color-black" data-view="search">Search</h5>
+            </a>
+          </li>
+          <li data-view="reviews">
+            <a href="#" class="text-decor-none" data-view="reviews">
+              <i class="fas fa-list icon-grey icon-footer" data-view="reviews"></i>
+              <h5 class="font-size-16 text-color-black" data-view="reviews">Reviews</h5>
+            </a>
+          </li>
+      </div>
+  </footer>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>

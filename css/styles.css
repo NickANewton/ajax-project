@@ -15,6 +15,10 @@ p {
   font-size: 16px;
 }
 
+.font-size-26 {
+  font-size: 26px;
+}
+
 .button-styles-all {
   width: 85px;
   height: 30px;
@@ -24,6 +28,18 @@ p {
   font-weight: 100;
   font-size: 12px;
   letter-spacing: 1px;
+}
+
+.icon-blue {
+  color: #5e86dd;
+}
+
+.lh-18 {
+  line-height: 18px;
+}
+
+.mt-15 {
+  margin-top: 15px;
 }
 
 .box-shadow {
@@ -124,12 +140,24 @@ p {
   padding: 5px;
 }
 
+.padding-8 {
+  padding: 8px;
+}
+
 .text-right {
   text-align: right;
 }
 
-.mobile-search-btn-hidden {
+.mobile-hidden {
   display: none;
+}
+
+.text-color-black {
+  color: black;
+}
+
+.icon-grey {
+  color: #b0b0b0;
 }
 
 .border-radius-5 {
@@ -150,6 +178,35 @@ p {
   object-fit: cover;
 }
 
+.background-white {
+  background-color: white;
+}
+
+.mobile-width-335 {
+  width: 335px;
+}
+
+.padding-12 {
+  padding: 12px;
+}
+
+.text-decor-none {
+  text-decoration: none;
+}
+
+.align-baseline {
+  align-items: baseline;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+}
+
+a:focus {
+  -webkit-tap-highlight-color: transparent;
+}
+
 @media screen and (min-width: 768px) {
   .desktop-display-flex {
     display: flex;
@@ -163,9 +220,16 @@ p {
     margin: 0 10px;
   }
 
-  .desktop-search-btn {
+  .desktop-display-inline {
     display: inline;
+  }
+
+  .desktop-search-btn {
     border-radius: 2px;
+    margin-left: 20px;
+  }
+
+  .margin-left {
     margin-left: 20px;
   }
 
@@ -188,6 +252,10 @@ p {
 
   .desktop-review-img-div {
     width: max-content;
+  }
+
+  .desktop-hidden {
+    display: none;
   }
 }
 
