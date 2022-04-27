@@ -27,19 +27,29 @@ function handleSearchSubmit(event) {
   }
   if (event.target === $reviewForm) {
     var reviewRating = getRating();
-    var form = {
-      reviewTitle: $reviewTitle.value,
-      reviewText: $reviewText.value,
-      reviewID: data.nextReviewId,
-      animeImg: $animeImgReview.getAttribute('src'),
-      animeTitle: $animeTitleReview.textContent,
-      reviewRating: reviewRating
-    };
-    $ulReviews.prepend(getReviews(form));
-    viewSwap('reviews');
-    data.reviews.unshift(form);
-    data.nextReviewId++;
-    $reviewForm.reset();
+    if (!data.editing) {
+      var form = {
+        reviewTitle: $reviewTitle.value,
+        reviewText: $reviewText.value,
+        reviewID: data.nextReviewId,
+        animeImg: $animeImgReview.getAttribute('src'),
+        animeTitle: $animeTitleReview.textContent,
+        reviewRating: reviewRating
+      };
+      $ulReviews.prepend(getReviews(form));
+      viewSwap('reviews');
+      data.reviews.unshift(form);
+      data.nextReviewId++;
+      $reviewForm.reset();
+    }
+    data.editing.reviewTitle = $reviewTitle.value;
+    data.editing.reviewText = $reviewText.value;
+    data.editing.reviewRating = reviewRating;
+    var editingID = data.editing.reviewID;
+    var $currentLi = document.querySelector('[data-entry-id="' + editingID + '"]');
+    $currentLi.replaceWith(getReviews(data.editing));
+    data.editing = null;
+    $h3NewReview.textContent = 'New Review';
   }
 }
 
