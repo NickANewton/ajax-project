@@ -209,6 +209,8 @@ function getRating() {
 
 function getReviews(form) {
   var $liReview = document.createElement('li');
+  var $editDivReview = document.createElement('div');
+  var $editIconReview = document.createElement('i');
   var $imgDivReview = document.createElement('div');
   var $imgReview = document.createElement('img');
   var $textDivReview = document.createElement('div');
@@ -219,6 +221,7 @@ function getReviews(form) {
   var $pTextReview = document.createElement('p');
 
   $liReview.classList.add('col-full', 'desktop-display-flex', 'mb-13', 'li-styles-all', 'font-size-12', 'background-white', 'border-radius-5', 'box-shadow', 'padding-12');
+  $editDivReview.classList.add('display-flex', 'justify-right', 'desktop-display-inline');
   $imgDivReview.classList.add('col-half', 'display-flex', 'justify-center', 'align-center');
   $imgReview.classList.add('desktop-margin-0-10', 'border-radius-5', 'box-shadow', 'mobile-review-img', 'desktop-review-img', 'desktop-width-auto');
   $textDivReview.classList.add('col-half', 'desktop-display-flex', 'flex-column', 'space-between', 'mt-12');
@@ -227,6 +230,7 @@ function getReviews(form) {
   $h3RatingReview.classList.add('font-work-sans', 'font-size-16', 'mt-12');
   $h3TitleReivew.classList.add('font-work-sans', 'font-size-16', 'mt-15');
   $pTextReview.classList.add('mt-8', 'lh-18');
+  $editIconReview.classList.add('fas', 'fa-pen');
 
   $imgReview.setAttribute('src', form.animeImg);
   $h4AnimeTitleReview.textContent = form.animeTitle;
@@ -234,6 +238,8 @@ function getReviews(form) {
   $h3RatingReview.textContent = 'Rating';
   $pTextReview.textContent = form.reviewText;
 
+  $liReview.appendChild($editDivReview);
+  $editDivReview.append($editIconReview);
   $liReview.appendChild($imgDivReview);
   $imgDivReview.appendChild($imgReview);
   $liReview.appendChild($textDivReview);

@@ -11,6 +11,14 @@ p {
   font-size: 48px;
 }
 
+.font-size-36 {
+  font-size: 36px;
+}
+
+.mr-15 {
+  margin-right: 15px;
+}
+
 .font-size-16 {
   font-size: 16px;
 }
@@ -146,6 +154,10 @@ p {
 
 .text-right {
   text-align: right;
+}
+
+.justify-right {
+  justify-content: right;
 }
 
 .mobile-hidden {
