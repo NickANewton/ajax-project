@@ -1,7 +1,7 @@
 var $body = document.querySelector('body');
 var $searchBar = document.querySelector('.search-bar');
 var $searchForm = document.querySelector('#searchForm');
-var $reviewForm = document.querySelector('#review');
+var $reviewForm = document.querySelector('#reviewForm');
 var $ulAnimeResults = document.querySelector('#anmieResultsUl');
 var $ulReviews = document.querySelector('#reviewUl');
 var $reviewTitle = document.querySelector('#review-title');
@@ -14,6 +14,7 @@ var $starIconNodeList = document.querySelectorAll('.star');
 var $starDiv = document.querySelector('#starDiv');
 var btnId = -1;
 var $iconFooterNodeList = document.querySelectorAll('.icon-footer');
+var $reviewsPage = document.querySelector('#reviews');
 
 $body.addEventListener('submit', handleSearchSubmit);
 
@@ -286,5 +287,13 @@ function handleAnchorClick(event) {
       }
     }
     viewSwap(anchorDataView);
+  }
+}
+
+$reviewsPage.addEventListener('click', editIconClickEvent);
+
+function editIconClickEvent(event) {
+  if (event.target.matches('i')) {
+    viewSwap('review-form');
   }
 }
