@@ -46,8 +46,9 @@ function handleSearchSubmit(event) {
     data.editing.reviewText = $reviewText.value;
     data.editing.reviewRating = reviewRating;
     var editingID = data.editing.reviewID;
-    var $currentLi = document.querySelector('[data-entry-id="' + editingID + '"]');
+    var $currentLi = document.querySelector('[data-review-id="' + editingID + '"]');
     $currentLi.replaceWith(getReviews(data.editing));
+    viewSwap('reviews');
     data.editing = null;
     $h3NewReview.textContent = 'New Review';
   }
@@ -328,7 +329,7 @@ function renderEditForm(review) {
   $reviewTitle.value = review.reviewTitle;
   $reviewText.value = review.reviewText;
 
-  for (var e = 0; e <= data.editing.reviewRating; e++) {
+  for (var e = 0; e < data.editing.reviewRating; e++) {
     $starIconNodeList[e].classList.replace('far', 'fas');
   }
 }
