@@ -293,7 +293,15 @@ function handleAnchorClick(event) {
 $reviewsPage.addEventListener('click', editIconClickEvent);
 
 function editIconClickEvent(event) {
+  var liDataReviewId = event.target.closest('li').getAttribute('data-review-id');
+  liDataReviewId = Number(liDataReviewId);
   if (event.target.matches('i')) {
+    for (var i = 0; i < data.reviews.length; i++) {
+      if (data.reviews[i].reviewID === liDataReviewId) {
+        data.editing = data.reviews[i];
+      }
+    }
+
     viewSwap('review-form');
   }
 }
