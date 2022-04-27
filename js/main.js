@@ -15,6 +15,7 @@ var $starDiv = document.querySelector('#starDiv');
 var btnId = -1;
 var $iconFooterNodeList = document.querySelectorAll('.icon-footer');
 var $reviewsPage = document.querySelector('#reviews');
+var $h3NewReview = document.querySelector('#h3NewReview');
 
 $body.addEventListener('submit', handleSearchSubmit);
 
@@ -296,12 +297,28 @@ function editIconClickEvent(event) {
   var liDataReviewId = event.target.closest('li').getAttribute('data-review-id');
   liDataReviewId = Number(liDataReviewId);
   if (event.target.matches('i')) {
-    for (var i = 0; i < data.reviews.length; i++) {
-      if (data.reviews[i].reviewID === liDataReviewId) {
-        data.editing = data.reviews[i];
-      }
-    }
-
     viewSwap('review-form');
+    getEntryData(liDataReviewId);
+    renderEditForm(data.editing);
+  }
+}
+
+function getEntryData(reviewID) {
+  for (var i = 0; i < data.reviews.length; i++) {
+    if (reviewID === data.reviews[i].reviewID) {
+      data.editing = data.reviews[i];
+    }
+  }
+}
+
+function renderEditForm(review) {
+  $h3NewReview.textContent = 'Edit Review';
+  $animeImgReview.setAttribute('src', review.animeImg);
+  $animeTitleReview.value = review.animeTitle;
+  $reviewTitle.value = review.reviewTitle;
+  $reviewText.value = review.reviewText;
+
+  for (var e = 0; e <= data.editing.reviewRating; e++) {
+    $starIconNodeList[e].classList.replace('far', 'fas');
   }
 }
