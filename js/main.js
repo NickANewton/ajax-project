@@ -1,19 +1,23 @@
 var $body = document.querySelector('body');
 var $searchBar = document.querySelector('.search-bar');
 var $searchForm = document.querySelector('#searchForm');
-var $reviewForm = document.querySelector('#review');
+var $reviewForm = document.querySelector('#reviewForm');
 var $ulAnimeResults = document.querySelector('#anmieResultsUl');
 var $ulReviews = document.querySelector('#reviewUl');
 var $reviewTitle = document.querySelector('#review-title');
 var $reviewText = document.querySelector('#review-text');
 var $viewNodeList = document.querySelectorAll('.view');
-var $searchDiv = document.querySelector('#search');
 var $animeImgReview = document.querySelector('#animeImgReview');
 var $animeTitleReview = document.querySelector('#animeTitleReview');
 var $starIconNodeList = document.querySelectorAll('.star');
 var $starDiv = document.querySelector('#starDiv');
 var btnId = -1;
 var $iconFooterNodeList = document.querySelectorAll('.icon-footer');
+var $reviewsPage = document.querySelector('#reviews');
+var $h3NewReview = document.querySelector('#h3NewReview');
+var $footer = document.querySelector('#footer');
+var $leftArrow = document.querySelector('#leftArrow');
+var $noReviews = document.querySelector('#noReviews');
 
 $body.addEventListener('submit', handleSearchSubmit);
 
@@ -25,18 +29,33 @@ function handleSearchSubmit(event) {
   }
   if (event.target === $reviewForm) {
     var reviewRating = getRating();
-    var form = {
-      reviewTitle: $reviewTitle.value,
-      reviewText: $reviewText.value,
-      reviewID: data.nextReviewId,
-      animeImg: $animeImgReview.getAttribute('src'),
-      animeTitle: $animeTitleReview.textContent,
-      reviewRating: reviewRating
-    };
-    $ulReviews.prepend(getReviews(form));
+    if (!data.editing) {
+      var form = {
+        reviewTitle: $reviewTitle.value,
+        reviewText: $reviewText.value,
+        reviewID: data.nextReviewId,
+        animeImg: $animeImgReview.getAttribute('src'),
+        animeTitle: $animeTitleReview.textContent,
+        reviewRating: reviewRating
+      };
+      $ulReviews.prepend(getReviews(form));
+      data.reviews.unshift(form);
+      data.nextReviewId++;
+      footerNavView('search');
+      footerNavButtons('reviews');
+    } else {
+      data.editing.reviewTitle = $reviewTitle.value;
+      data.editing.reviewText = $reviewText.value;
+      data.editing.reviewRating = reviewRating;
+      $footer.classList.remove('hidden');
+      var editingID = data.editing.reviewID;
+      var $currentLi = document.querySelector('[data-review-id="' + editingID + '"]');
+      $currentLi.replaceWith(getReviews(data.editing));
+      footerNavButtons('reviews');
+      data.editing = null;
+      $h3NewReview.textContent = 'New Review';
+    }
     viewSwap('reviews');
-    data.reviews.unshift(form);
-    data.nextReviewId++;
     $reviewForm.reset();
   }
 }
@@ -144,12 +163,19 @@ function handleUloadEvent(event) {
   for (var e = 0; e < data.reviews.length; e++) {
     $ulReviews.appendChild(getReviews(data.reviews[e]));
   }
-  $animeImgReview.setAttribute('src', data.searchResults[data.reviewAnimeId].imageUrl);
-  $animeTitleReview.textContent = data.searchResults[data.reviewAnimeId].titleEnglish;
-  if (data.searchResults[data.reviewAnimeId].titleEnglish === null) {
-    $animeTitleReview.textContent = data.searchResults[data.reviewAnimeId].title;
+  if (data.reviewAnimeId !== null) {
+    $animeImgReview.setAttribute('src', data.searchResults[data.reviewAnimeId].imageUrl);
+    $animeTitleReview.textContent = data.searchResults[data.reviewAnimeId].titleEnglish;
+    if (data.searchResults[data.reviewAnimeId].titleEnglish === null) {
+      $animeTitleReview.textContent = data.searchResults[data.reviewAnimeId].title;
+    }
   }
   viewSwap(data.view);
+  footerNavButtons(data.view);
+  footerNavView(data.view);
+  if (data.formStatus === 'edit') {
+    renderEditForm(data.editing);
+  }
 }
 
 function viewSwap(view) {
@@ -163,16 +189,10 @@ function viewSwap(view) {
   }
 }
 
-$searchDiv.addEventListener('click', showNewReview);
-
-function showNewReview(event) {
-  if (event.target.textContent === 'REVIEW') {
-    getCurrentAnime(event.target);
-    viewSwap('review-form');
-  }
-}
-
 function getCurrentAnime(reviewButton) {
+  data.currentAnime = reviewButton;
+  data.formStatus = 'new';
+  $h3NewReview.textContent = 'New Review';
   var currentBtnId = reviewButton.getAttribute('data-review-btn-id');
   data.reviewAnimeId = currentBtnId;
   $animeImgReview.setAttribute('src', data.searchResults[currentBtnId].imageUrl);
@@ -209,6 +229,9 @@ function getRating() {
 
 function getReviews(form) {
   var $liReview = document.createElement('li');
+  var $editDivReview = document.createElement('div');
+  var $editIconReview = document.createElement('i');
+  var $containerDiv = document.createElement('div');
   var $imgDivReview = document.createElement('div');
   var $imgReview = document.createElement('img');
   var $textDivReview = document.createElement('div');
@@ -218,7 +241,9 @@ function getReviews(form) {
   var $h3TitleReivew = document.createElement('h3');
   var $pTextReview = document.createElement('p');
 
-  $liReview.classList.add('col-full', 'desktop-display-flex', 'mb-13', 'li-styles-all', 'font-size-12', 'background-white', 'border-radius-5', 'box-shadow', 'padding-12');
+  $liReview.classList.add('col-full', 'mb-13', 'li-styles-all', 'font-size-12', 'background-white', 'border-radius-5', 'box-shadow', 'padding-12');
+  $liReview.dataset.reviewId = form.reviewID;
+  $editDivReview.classList.add('display-flex', 'justify-right');
   $imgDivReview.classList.add('col-half', 'display-flex', 'justify-center', 'align-center');
   $imgReview.classList.add('desktop-margin-0-10', 'border-radius-5', 'box-shadow', 'mobile-review-img', 'desktop-review-img', 'desktop-width-auto');
   $textDivReview.classList.add('col-half', 'desktop-display-flex', 'flex-column', 'space-between', 'mt-12');
@@ -227,6 +252,8 @@ function getReviews(form) {
   $h3RatingReview.classList.add('font-work-sans', 'font-size-16', 'mt-12');
   $h3TitleReivew.classList.add('font-work-sans', 'font-size-16', 'mt-15');
   $pTextReview.classList.add('mt-8', 'lh-18');
+  $editIconReview.classList.add('fas', 'fa-pen', 'font-size-23', 'absolute-positioning');
+  $containerDiv.classList.add('desktop-display-flex');
 
   $imgReview.setAttribute('src', form.animeImg);
   $h4AnimeTitleReview.textContent = form.animeTitle;
@@ -234,9 +261,12 @@ function getReviews(form) {
   $h3RatingReview.textContent = 'Rating';
   $pTextReview.textContent = form.reviewText;
 
-  $liReview.appendChild($imgDivReview);
+  $liReview.appendChild($editDivReview);
+  $editDivReview.appendChild($editIconReview);
+  $liReview.appendChild($containerDiv);
+  $containerDiv.appendChild($imgDivReview);
   $imgDivReview.appendChild($imgReview);
-  $liReview.appendChild($textDivReview);
+  $containerDiv.appendChild($textDivReview);
   $textDivReview.appendChild($h4AnimeTitleReview);
   $textDivReview.appendChild($starDivReview);
 
@@ -255,6 +285,8 @@ function getReviews(form) {
   $textDivReview.appendChild($h3TitleReivew);
   $textDivReview.appendChild($pTextReview);
 
+  $noReviews.classList.add('hidden');
+
   return $liReview;
 }
 
@@ -263,16 +295,78 @@ $body.addEventListener('click', handleAnchorClick);
 function handleAnchorClick(event) {
   var anchorDataView = event.target.getAttribute('data-view');
   if (event.target.matches('a') || event.target.parentNode.matches('a')) {
+    viewSwap(anchorDataView);
     for (var e = 0; e < $starIconNodeList.length; e++) {
       $starIconNodeList[e].classList.replace('fas', 'far');
     }
-    for (var i = 0; i < $iconFooterNodeList.length; i++) {
-      if ($iconFooterNodeList[i].getAttribute('data-view') === anchorDataView) {
-        $iconFooterNodeList[i].classList.replace('icon-grey', 'icon-blue');
-      } else {
-        $iconFooterNodeList[i].classList.add('icon-blue', 'icon-grey');
-      }
+
+    $reviewText.value = '';
+    $reviewTitle.value = '';
+
+    if (data.view === 'review-form') {
+      data.currentAnime = event.target;
+      getCurrentAnime(data.currentAnime);
     }
-    viewSwap(anchorDataView);
+    footerNavButtons(anchorDataView);
+    footerNavView(data.view);
+  }
+}
+
+function footerNavButtons(anchorDataView) {
+  for (var i = 0; i < $iconFooterNodeList.length; i++) {
+    if ($iconFooterNodeList[i].getAttribute('data-view') === anchorDataView) {
+      $iconFooterNodeList[i].classList.replace('icon-grey', 'icon-blue');
+    } else {
+      $iconFooterNodeList[i].classList.add('icon-blue', 'icon-grey');
+    }
+  }
+}
+
+function footerNavView(dataView) {
+  if (dataView === 'review-form') {
+    $footer.classList.add('hidden');
+    if (data.formStatus === 'new') {
+      $leftArrow.classList.remove('hidden');
+    } else {
+      $leftArrow.classList.add('hidden');
+    }
+  }
+  if (dataView === 'search') {
+    $footer.classList.remove('hidden');
+    $leftArrow.classList.add('hidden');
+  }
+}
+
+$reviewsPage.addEventListener('click', editIconClickEvent);
+
+function editIconClickEvent(event) {
+  var liDataReviewId = event.target.closest('li').getAttribute('data-review-id');
+  liDataReviewId = Number(liDataReviewId);
+  if (event.target.matches('i')) {
+    viewSwap('review-form');
+    getEntryData(liDataReviewId);
+    renderEditForm(data.editing);
+    $footer.classList.add('hidden');
+  }
+}
+
+function getEntryData(reviewID) {
+  for (var i = 0; i < data.reviews.length; i++) {
+    if (reviewID === data.reviews[i].reviewID) {
+      data.editing = data.reviews[i];
+    }
+  }
+}
+
+function renderEditForm(review) {
+  $h3NewReview.textContent = 'Edit Review';
+  data.formStatus = 'edit';
+  $animeImgReview.setAttribute('src', review.animeImg);
+  $animeTitleReview.value = review.animeTitle;
+  $reviewTitle.value = review.reviewTitle;
+  $reviewText.value = review.reviewText;
+
+  for (var e = 0; e < data.editing.reviewRating; e++) {
+    $starIconNodeList[e].classList.replace('far', 'fas');
   }
 }

@@ -1,6 +1,6 @@
 body {
-  height: 100vh;
   width: 100vw;
+  margin-bottom: 56px;
 }
 
 p {
@@ -11,12 +11,24 @@ p {
   font-size: 48px;
 }
 
+.font-size-36 {
+  font-size: 36px;
+}
+
+.mr-15 {
+  margin-right: 15px;
+}
+
 .font-size-16 {
   font-size: 16px;
 }
 
 .font-size-26 {
   font-size: 26px;
+}
+
+.font-size-23 {
+  font-size: 23px;
 }
 
 .button-styles-all {
@@ -132,7 +144,7 @@ p {
 }
 
 .text-area {
-  height: 191px;
+  height: 130px;
   width: 100%;
   letter-spacing: 0.6px;
   font-weight: 100;
@@ -146,6 +158,10 @@ p {
 
 .text-right {
   text-align: right;
+}
+
+.justify-right {
+  justify-content: right;
 }
 
 .mobile-hidden {
@@ -201,6 +217,10 @@ p {
 .bottom-nav {
   position: fixed;
   bottom: 0;
+}
+
+.absolute-positioning {
+  position: absolute;
 }
 
 a:focus {

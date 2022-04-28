@@ -6,7 +6,10 @@ var data = {
   searchResults: [],
   reviews: [],
   nextReviewId: 1,
-  reviewAnimeId: null
+  reviewAnimeId: null,
+  editing: null,
+  currentAnime: null,
+  formStatus: null
 };
 
 var previousDataJSON = JSON.parse(localStorage.getItem('user-data'));

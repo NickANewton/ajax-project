@@ -18,9 +18,14 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="bg-grey font-roboto">
-  <header class="bg-blue mb-13">
+  <header id="header" class="bg-blue mb-13">
     <div class="row height-56 container">
       <div class="col-full display-flex align-baseline text-white">
+        <div id="leftArrow" class="display-flex hidden desktop-hidden">
+          <a href="#" data-view="search">
+            <i class="fas fa-chevron-left font-size-36 mr-15 text-decor-none text-white" data-view="search"></i>
+          </a>
+        </div>
         <div>
           <h1 class="font-alegreya-sans font-size-48">AniRate</h1>
         </div>
@@ -62,10 +67,10 @@
     <div class="view hidden" data-view="review-form">
       <div class="row">
         <div class="col-full">
-          <h3 class="font-work-sans">New Review</h3>
+          <h3 id="h3NewReview" class="font-work-sans">New Review</h3>
         </div>
       </div>
-      <form id="review">
+      <form id="reviewForm">
         <div class="row">
           <div class="col-half">
             <div class="mt-12  mb-13 desktop-review-img-div display-flex justify-center">
@@ -103,13 +108,15 @@
         </div>
       </form>
     </div>
-    <div class="view hidden" data-view="reviews">
+    <div id="reviews" class="view hidden" data-view="reviews">
       <div class="row mb-13">
         <div class="col-full">
           <h3 class="font-work-sans">My Reviews</h3>
+          <h5 id="noReviews" class="no-reviews mt-12 mobile-text-center">No reviews have been entered.</h5>
         </div>
       </div>
       <div class="row">
+        <div class="col-full"></div>
         <div class="col-full">
           <ul id="reviewUl"
             class="desktop-width-auto desktop-display-flex mobile-width-335 margin-0-auto flex-wrap">
@@ -118,7 +125,7 @@
       </div>
   </main>
   <footer>
-    <div class="row desktop-hidden">
+    <div id="footer" class="row desktop-hidden">
       <div class="col-full bottom-nav background-white">
         <ul class="display-flex space-around mobile-text-center height-56 align-center font-size-26 li-styles-all">
           <li data-view="search">
