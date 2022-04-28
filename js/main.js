@@ -17,7 +17,7 @@ var $reviewsPage = document.querySelector('#reviews');
 var $h3NewReview = document.querySelector('#h3NewReview');
 var $footer = document.querySelector('#footer');
 var $leftArrow = document.querySelector('#leftArrow');
-var $header = document.querySelector('#header');
+var $noReviews = document.querySelector('#noReviews');
 
 $body.addEventListener('submit', handleSearchSubmit);
 
@@ -47,6 +47,8 @@ function handleSearchSubmit(event) {
     data.editing.reviewTitle = $reviewTitle.value;
     data.editing.reviewText = $reviewText.value;
     data.editing.reviewRating = reviewRating;
+    $footer.classList.remove('hidden');
+    $noReviews.classList.add('hidden');
     var editingID = data.editing.reviewID;
     var $currentLi = document.querySelector('[data-review-id="' + editingID + '"]');
     $currentLi.replaceWith(getReviews(data.editing));
@@ -219,6 +221,7 @@ function getReviews(form) {
   var $liReview = document.createElement('li');
   var $editDivReview = document.createElement('div');
   var $editIconReview = document.createElement('i');
+  var $containerDiv = document.createElement('div');
   var $imgDivReview = document.createElement('div');
   var $imgReview = document.createElement('img');
   var $textDivReview = document.createElement('div');
@@ -228,7 +231,7 @@ function getReviews(form) {
   var $h3TitleReivew = document.createElement('h3');
   var $pTextReview = document.createElement('p');
 
-  $liReview.classList.add('col-full', 'desktop-display-flex', 'mb-13', 'li-styles-all', 'font-size-12', 'background-white', 'border-radius-5', 'box-shadow', 'padding-12');
+  $liReview.classList.add('col-full', 'mb-13', 'li-styles-all', 'font-size-12', 'background-white', 'border-radius-5', 'box-shadow', 'padding-12');
   $liReview.dataset.reviewId = form.reviewID;
   $editDivReview.classList.add('display-flex', 'justify-right');
   $imgDivReview.classList.add('col-half', 'display-flex', 'justify-center', 'align-center');
@@ -239,7 +242,8 @@ function getReviews(form) {
   $h3RatingReview.classList.add('font-work-sans', 'font-size-16', 'mt-12');
   $h3TitleReivew.classList.add('font-work-sans', 'font-size-16', 'mt-15');
   $pTextReview.classList.add('mt-8', 'lh-18');
-  $editIconReview.classList.add('fas', 'fa-pen', 'font-size-26');
+  $editIconReview.classList.add('fas', 'fa-pen', 'font-size-26', 'absolute-positioning');
+  $containerDiv.classList.add('desktop-display-flex');
 
   $imgReview.setAttribute('src', form.animeImg);
   $h4AnimeTitleReview.textContent = form.animeTitle;
@@ -247,12 +251,12 @@ function getReviews(form) {
   $h3RatingReview.textContent = 'Rating';
   $pTextReview.textContent = form.reviewText;
 
-  // $liReview.appendChild($editDivReview);
-
-  $liReview.appendChild($imgDivReview);
+  $liReview.appendChild($editDivReview);
+  $editDivReview.appendChild($editIconReview);
+  $liReview.appendChild($containerDiv);
+  $containerDiv.appendChild($imgDivReview);
   $imgDivReview.appendChild($imgReview);
-  $liReview.appendChild($textDivReview);
-  $textDivReview.append($editIconReview);
+  $containerDiv.appendChild($textDivReview);
   $textDivReview.appendChild($h4AnimeTitleReview);
   $textDivReview.appendChild($starDivReview);
 
@@ -293,10 +297,15 @@ function handleAnchorClick(event) {
         $iconFooterNodeList[i].classList.add('icon-blue', 'icon-grey');
       }
     }
-    viewSwap(anchorDataView);
-    if (data.view === 'review-form') {
-      hideNavBar();
+    if (event.target.textContent === 'REVIEW') {
+      $footer.classList.add('hidden');
+      $leftArrow.classList.remove('hidden');
       getCurrentAnime(event.target);
+    }
+    viewSwap(anchorDataView);
+    if (data.view === 'search') {
+      $footer.classList.remove('hidden');
+      $leftArrow.classList.add('hidden');
     }
   }
 }
@@ -310,7 +319,7 @@ function editIconClickEvent(event) {
     viewSwap('review-form');
     getEntryData(liDataReviewId);
     renderEditForm(data.editing);
-    hideNavBar();
+    $footer.classList.add('hidden');
   }
 }
 
@@ -332,23 +341,4 @@ function renderEditForm(review) {
   for (var e = 0; e < data.editing.reviewRating; e++) {
     $starIconNodeList[e].classList.replace('far', 'fas');
   }
-}
-
-$header.addEventListener('click', backArrowClick);
-
-function backArrowClick(event) {
-  if (event.target.matches('i')) {
-    if ($h3NewReview.textContent === 'New Review') {
-      viewSwap('search');
-    } else if ($h3NewReview.textContent === 'Edit Review') {
-      viewSwap('reviews');
-    }
-    $footer.classList.remove('hidden');
-    $leftArrow.classList.add('hidden');
-  }
-}
-
-function hideNavBar() {
-  $footer.classList.add('hidden');
-  $leftArrow.classList.remove('hidden');
 }

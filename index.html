@@ -21,8 +21,10 @@
   <header id="header" class="bg-blue mb-13">
     <div class="row height-56 container">
       <div class="col-full display-flex align-baseline text-white">
-        <div id="leftArrow" class="display-flex hidden">
-          <i class="fas fa-chevron-left font-size-36 mr-15"></i>
+        <div id="leftArrow" class="display-flex hidden desktop-hidden">
+          <a href="#" data-view="search">
+            <i class="fas fa-chevron-left font-size-36 mr-15 text-decor-none text-white" data-view="search"></i>
+          </a>
         </div>
         <div>
           <h1 class="font-alegreya-sans font-size-48">AniRate</h1>
@@ -110,7 +112,7 @@
       <div class="row mb-13">
         <div class="col-full">
           <h3 class="font-work-sans">My Reviews</h3>
-          <h5 class="no-reviews mt-12 mobile-text-center">No reviews have been entered.</h5>
+          <h5 id="noReviews" class="no-reviews mt-12 mobile-text-center">No reviews have been entered.</h5>
         </div>
       </div>
       <div class="row">

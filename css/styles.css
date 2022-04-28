@@ -1,6 +1,6 @@
 body {
-  height: 100vh;
   width: 100vw;
+  margin-bottom: 56px;
 }
 
 p {
@@ -213,6 +213,10 @@ p {
 .bottom-nav {
   position: fixed;
   bottom: 0;
+}
+
+.absolute-positioning {
+  position: absolute;
 }
 
 a:focus {
