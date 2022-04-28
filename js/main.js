@@ -39,22 +39,24 @@ function handleSearchSubmit(event) {
         reviewRating: reviewRating
       };
       $ulReviews.prepend(getReviews(form));
-      viewSwap('reviews');
       data.reviews.unshift(form);
       data.nextReviewId++;
-      $reviewForm.reset();
+      footerNavView('search');
+      footerNavButtons('reviews');
+    } else {
+      data.editing.reviewTitle = $reviewTitle.value;
+      data.editing.reviewText = $reviewText.value;
+      data.editing.reviewRating = reviewRating;
+      $footer.classList.remove('hidden');
+      var editingID = data.editing.reviewID;
+      var $currentLi = document.querySelector('[data-review-id="' + editingID + '"]');
+      $currentLi.replaceWith(getReviews(data.editing));
+      footerNavButtons('reviews');
+      data.editing = null;
+      $h3NewReview.textContent = 'New Review';
     }
-    data.editing.reviewTitle = $reviewTitle.value;
-    data.editing.reviewText = $reviewText.value;
-    data.editing.reviewRating = reviewRating;
-    $footer.classList.remove('hidden');
-    $noReviews.classList.add('hidden');
-    var editingID = data.editing.reviewID;
-    var $currentLi = document.querySelector('[data-review-id="' + editingID + '"]');
-    $currentLi.replaceWith(getReviews(data.editing));
     viewSwap('reviews');
-    data.editing = null;
-    $h3NewReview.textContent = 'New Review';
+    $reviewForm.reset();
   }
 }
 
@@ -169,6 +171,11 @@ function handleUloadEvent(event) {
     }
   }
   viewSwap(data.view);
+  footerNavButtons(data.view);
+  footerNavView(data.view);
+  if (data.formStatus === 'edit') {
+    renderEditForm(data.editing);
+  }
 }
 
 function viewSwap(view) {
@@ -183,6 +190,9 @@ function viewSwap(view) {
 }
 
 function getCurrentAnime(reviewButton) {
+  data.currentAnime = reviewButton;
+  data.formStatus = 'new';
+  $h3NewReview.textContent = 'New Review';
   var currentBtnId = reviewButton.getAttribute('data-review-btn-id');
   data.reviewAnimeId = currentBtnId;
   $animeImgReview.setAttribute('src', data.searchResults[currentBtnId].imageUrl);
@@ -275,6 +285,8 @@ function getReviews(form) {
   $textDivReview.appendChild($h3TitleReivew);
   $textDivReview.appendChild($pTextReview);
 
+  $noReviews.classList.add('hidden');
+
   return $liReview;
 }
 
@@ -283,6 +295,7 @@ $body.addEventListener('click', handleAnchorClick);
 function handleAnchorClick(event) {
   var anchorDataView = event.target.getAttribute('data-view');
   if (event.target.matches('a') || event.target.parentNode.matches('a')) {
+    viewSwap(anchorDataView);
     for (var e = 0; e < $starIconNodeList.length; e++) {
       $starIconNodeList[e].classList.replace('fas', 'far');
     }
@@ -290,23 +303,37 @@ function handleAnchorClick(event) {
     $reviewText.value = '';
     $reviewTitle.value = '';
 
-    for (var i = 0; i < $iconFooterNodeList.length; i++) {
-      if ($iconFooterNodeList[i].getAttribute('data-view') === anchorDataView) {
-        $iconFooterNodeList[i].classList.replace('icon-grey', 'icon-blue');
-      } else {
-        $iconFooterNodeList[i].classList.add('icon-blue', 'icon-grey');
-      }
+    if (data.view === 'review-form') {
+      data.currentAnime = event.target;
+      getCurrentAnime(data.currentAnime);
     }
-    if (event.target.textContent === 'REVIEW') {
-      $footer.classList.add('hidden');
+    footerNavButtons(anchorDataView);
+    footerNavView(data.view);
+  }
+}
+
+function footerNavButtons(anchorDataView) {
+  for (var i = 0; i < $iconFooterNodeList.length; i++) {
+    if ($iconFooterNodeList[i].getAttribute('data-view') === anchorDataView) {
+      $iconFooterNodeList[i].classList.replace('icon-grey', 'icon-blue');
+    } else {
+      $iconFooterNodeList[i].classList.add('icon-blue', 'icon-grey');
+    }
+  }
+}
+
+function footerNavView(dataView) {
+  if (dataView === 'review-form') {
+    $footer.classList.add('hidden');
+    if (data.formStatus === 'new') {
       $leftArrow.classList.remove('hidden');
-      getCurrentAnime(event.target);
-    }
-    viewSwap(anchorDataView);
-    if (data.view === 'search') {
-      $footer.classList.remove('hidden');
+    } else {
       $leftArrow.classList.add('hidden');
     }
+  }
+  if (dataView === 'search') {
+    $footer.classList.remove('hidden');
+    $leftArrow.classList.add('hidden');
   }
 }
 
@@ -333,6 +360,7 @@ function getEntryData(reviewID) {
 
 function renderEditForm(review) {
   $h3NewReview.textContent = 'Edit Review';
+  data.formStatus = 'edit';
   $animeImgReview.setAttribute('src', review.animeImg);
   $animeTitleReview.value = review.animeTitle;
   $reviewTitle.value = review.reviewTitle;
