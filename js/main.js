@@ -7,7 +7,6 @@ var $ulReviews = document.querySelector('#reviewUl');
 var $reviewTitle = document.querySelector('#review-title');
 var $reviewText = document.querySelector('#review-text');
 var $viewNodeList = document.querySelectorAll('.view');
-var $searchDiv = document.querySelector('#search');
 var $animeImgReview = document.querySelector('#animeImgReview');
 var $animeTitleReview = document.querySelector('#animeTitleReview');
 var $starIconNodeList = document.querySelectorAll('.star');
@@ -16,6 +15,9 @@ var btnId = -1;
 var $iconFooterNodeList = document.querySelectorAll('.icon-footer');
 var $reviewsPage = document.querySelector('#reviews');
 var $h3NewReview = document.querySelector('#h3NewReview');
+var $footer = document.querySelector('#footer');
+var $leftArrow = document.querySelector('#leftArrow');
+var $header = document.querySelector('#header');
 
 $body.addEventListener('submit', handleSearchSubmit);
 
@@ -157,10 +159,12 @@ function handleUloadEvent(event) {
   for (var e = 0; e < data.reviews.length; e++) {
     $ulReviews.appendChild(getReviews(data.reviews[e]));
   }
-  $animeImgReview.setAttribute('src', data.searchResults[data.reviewAnimeId].imageUrl);
-  $animeTitleReview.textContent = data.searchResults[data.reviewAnimeId].titleEnglish;
-  if (data.searchResults[data.reviewAnimeId].titleEnglish === null) {
-    $animeTitleReview.textContent = data.searchResults[data.reviewAnimeId].title;
+  if (data.reviewAnimeId !== null) {
+    $animeImgReview.setAttribute('src', data.searchResults[data.reviewAnimeId].imageUrl);
+    $animeTitleReview.textContent = data.searchResults[data.reviewAnimeId].titleEnglish;
+    if (data.searchResults[data.reviewAnimeId].titleEnglish === null) {
+      $animeTitleReview.textContent = data.searchResults[data.reviewAnimeId].title;
+    }
   }
   viewSwap(data.view);
 }
@@ -173,15 +177,6 @@ function viewSwap(view) {
     } else {
       $viewNodeList[i].classList.add('hidden');
     }
-  }
-}
-
-$searchDiv.addEventListener('click', showNewReview);
-
-function showNewReview(event) {
-  if (event.target.textContent === 'REVIEW') {
-    getCurrentAnime(event.target);
-    viewSwap('review-form');
   }
 }
 
@@ -299,6 +294,10 @@ function handleAnchorClick(event) {
       }
     }
     viewSwap(anchorDataView);
+    if (data.view === 'review-form') {
+      hideNavBar();
+      getCurrentAnime(event.target);
+    }
   }
 }
 
@@ -311,6 +310,7 @@ function editIconClickEvent(event) {
     viewSwap('review-form');
     getEntryData(liDataReviewId);
     renderEditForm(data.editing);
+    hideNavBar();
   }
 }
 
@@ -332,4 +332,23 @@ function renderEditForm(review) {
   for (var e = 0; e < data.editing.reviewRating; e++) {
     $starIconNodeList[e].classList.replace('far', 'fas');
   }
+}
+
+$header.addEventListener('click', backArrowClick);
+
+function backArrowClick(event) {
+  if (event.target.matches('i')) {
+    if ($h3NewReview.textContent === 'New Review') {
+      viewSwap('search');
+    } else if ($h3NewReview.textContent === 'Edit Review') {
+      viewSwap('reviews');
+    }
+    $footer.classList.remove('hidden');
+    $leftArrow.classList.add('hidden');
+  }
+}
+
+function hideNavBar() {
+  $footer.classList.add('hidden');
+  $leftArrow.classList.remove('hidden');
 }
