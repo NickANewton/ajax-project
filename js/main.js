@@ -242,7 +242,7 @@ function getReviews(form) {
   $h3RatingReview.classList.add('font-work-sans', 'font-size-16', 'mt-12');
   $h3TitleReivew.classList.add('font-work-sans', 'font-size-16', 'mt-15');
   $pTextReview.classList.add('mt-8', 'lh-18');
-  $editIconReview.classList.add('fas', 'fa-pen', 'font-size-26', 'absolute-positioning');
+  $editIconReview.classList.add('fas', 'fa-pen', 'font-size-23', 'absolute-positioning');
   $containerDiv.classList.add('desktop-display-flex');
 
   $imgReview.setAttribute('src', form.animeImg);
