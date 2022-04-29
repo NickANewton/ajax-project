@@ -20,6 +20,16 @@
 
 @media screen and (min-width: 768px) {
   .container {
+    max-width: 600px;
+  }
+
+  .tablet-col-half {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .container {
     max-width: 900px;
   }
 
