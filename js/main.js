@@ -18,6 +18,7 @@ var $h3NewReview = document.querySelector('#h3NewReview');
 var $footer = document.querySelector('#footer');
 var $leftArrow = document.querySelector('#leftArrow');
 var $noReviews = document.querySelector('#noReviews');
+var $loadRing = document.querySelector('#loadRing');
 
 $body.addEventListener('submit', handleSearchSubmit);
 
@@ -84,8 +85,10 @@ function getAnimeByName(search) {
     for (var e = 0; e < data.searchResults.length; e++) {
       $ulAnimeResults.appendChild(searchResults(data.searchResults[e]));
     }
+    $loadRing.classList.add('hidden');
   });
   xhr.send();
+  $loadRing.classList.remove('hidden');
 }
 
 function searchResults(results) {
