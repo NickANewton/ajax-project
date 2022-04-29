@@ -19,6 +19,7 @@ var $footer = document.querySelector('#footer');
 var $leftArrow = document.querySelector('#leftArrow');
 var $noReviews = document.querySelector('#noReviews');
 var $loadRing = document.querySelector('#loadRing');
+var $noResults = document.querySelector('#noResults');
 
 $body.addEventListener('submit', handleSearchSubmit);
 
@@ -68,22 +69,27 @@ function getAnimeByName(search) {
   xhr.addEventListener('load', function () {
     data.searchResults = [];
     var searchData = xhr.response;
-    for (var i = 0; i < searchData.data.length; i++) {
-      var useableData = {};
-      useableData.imageUrl = searchData.data[i].images.jpg.image_url;
-      useableData.titleEnglish = searchData.data[i].title_english;
-      useableData.title = searchData.data[i].title;
-      useableData.type = searchData.data[i].type;
-      useableData.summary = searchData.data[i].synopsis;
-      useableData.episodes = searchData.data[i].episodes;
-      data.searchResults.push(useableData);
-    }
-    while ($ulAnimeResults.firstChild) {
-      $ulAnimeResults.removeChild($ulAnimeResults.firstChild);
-    }
-    btnId = -1;
-    for (var e = 0; e < data.searchResults.length; e++) {
-      $ulAnimeResults.appendChild(searchResults(data.searchResults[e]));
+    if (searchData.data.length === 0) {
+      $noResults.classList.remove('hidden');
+    } else {
+      $noResults.classList.add('hidden');
+      for (var i = 0; i < searchData.data.length; i++) {
+        var useableData = {};
+        useableData.imageUrl = searchData.data[i].images.jpg.image_url;
+        useableData.titleEnglish = searchData.data[i].title_english;
+        useableData.title = searchData.data[i].title;
+        useableData.type = searchData.data[i].type;
+        useableData.summary = searchData.data[i].synopsis;
+        useableData.episodes = searchData.data[i].episodes;
+        data.searchResults.push(useableData);
+      }
+      while ($ulAnimeResults.firstChild) {
+        $ulAnimeResults.removeChild($ulAnimeResults.firstChild);
+      }
+      btnId = -1;
+      for (var e = 0; e < data.searchResults.length; e++) {
+        $ulAnimeResults.appendChild(searchResults(data.searchResults[e]));
+      }
     }
     $loadRing.classList.add('hidden');
   });
