@@ -71,6 +71,9 @@ function getAnimeByName(search) {
     var searchData = xhr.response;
     if (searchData.data.length === 0) {
       $noResults.classList.remove('hidden');
+      while ($ulAnimeResults.firstChild) {
+        $ulAnimeResults.removeChild($ulAnimeResults.firstChild);
+      }
     } else {
       $noResults.classList.add('hidden');
       for (var i = 0; i < searchData.data.length; i++) {
