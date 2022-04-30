@@ -31,6 +31,11 @@ p {
   line-height: 15px;
 }
 
+button,
+i {
+  cursor: pointer;
+}
+
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -195,6 +200,10 @@ p {
   margin-right: 15px;
 }
 
+.mt-20 {
+  margin-top: 20px;
+}
+
 .mt-15 {
   margin-top: 15px;
 }
@@ -251,6 +260,53 @@ a:focus {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* CSS Loader */
+
+.lds-ring {
+  display: flex;
+  position: relative;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+}
+
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  margin: 8px;
+  border: 8px solid #fff;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #5e86dd transparent transparent;
+}
+
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* media rules */
+
 @media screen and (min-width: 768px) {
   .desktop-align-left {
     align-items: flex-start;
@@ -263,10 +319,6 @@ a:focus {
   .desktop-search-btn {
     border-radius: 2px;
     margin-left: 20px;
-  }
-
-  .desktop-display-inline {
-    display: inline;
   }
 
   .desktop-margin-0-10 {
@@ -285,10 +337,6 @@ a:focus {
     margin-left: 20px;
   }
 
-  .desktop-hidden {
-    display: none;
-  }
-
   .desktop-review-img {
     height: auto;
     object-fit: none;
@@ -300,5 +348,15 @@ a:focus {
 
   .flex-wrap {
     flex-wrap: wrap;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .desktop-hidden {
+    display: none;
+  }
+
+  .desktop-display-inline {
+    display: inline;
   }
 }
