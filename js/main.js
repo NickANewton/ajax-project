@@ -20,6 +20,7 @@ var $leftArrow = document.querySelector('#leftArrow');
 var $noReviews = document.querySelector('#noReviews');
 var $loadRing = document.querySelector('#loadRing');
 var $noResults = document.querySelector('#noResults');
+var $requestFailed = document.querySelector('#failed');
 
 $body.addEventListener('submit', handleSearchSubmit);
 
@@ -62,6 +63,11 @@ function handleSearchSubmit(event) {
   }
 }
 
+function handleError(event) {
+  $requestFailed.classList.remove('hidden');
+  removeSearchResults();
+}
+
 function getAnimeByName(search) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.jikan.moe/v4/anime?q=' + search + '&sfw=true&limit=20');
@@ -69,11 +75,10 @@ function getAnimeByName(search) {
   xhr.addEventListener('load', function () {
     data.searchResults = [];
     var searchData = xhr.response;
+
     if (searchData.data.length === 0) {
       $noResults.classList.remove('hidden');
-      while ($ulAnimeResults.firstChild) {
-        $ulAnimeResults.removeChild($ulAnimeResults.firstChild);
-      }
+      removeSearchResults();
     } else {
       $noResults.classList.add('hidden');
       for (var i = 0; i < searchData.data.length; i++) {
@@ -86,9 +91,7 @@ function getAnimeByName(search) {
         useableData.episodes = searchData.data[i].episodes;
         data.searchResults.push(useableData);
       }
-      while ($ulAnimeResults.firstChild) {
-        $ulAnimeResults.removeChild($ulAnimeResults.firstChild);
-      }
+      removeSearchResults();
       btnId = -1;
       for (var e = 0; e < data.searchResults.length; e++) {
         $ulAnimeResults.appendChild(searchResults(data.searchResults[e]));
@@ -97,7 +100,14 @@ function getAnimeByName(search) {
     $loadRing.classList.add('hidden');
   });
   xhr.send();
+  xhr.addEventListener('error', handleError);
   $loadRing.classList.remove('hidden');
+}
+
+function removeSearchResults() {
+  while ($ulAnimeResults.firstChild) {
+    $ulAnimeResults.removeChild($ulAnimeResults.firstChild);
+  }
 }
 
 function searchResults(results) {
