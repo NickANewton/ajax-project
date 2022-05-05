@@ -1,3 +1,3 @@
-# ajax-project
+# anirate
 
-A dynamic HTML, CSS, and JavaScript solo project.
+A front-end web app which allows users to search for anime and write reviews for them.
