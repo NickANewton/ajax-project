@@ -79,6 +79,7 @@ function getAnimeByName(search) {
 
     if (searchData.data.length === 0) {
       $noResults.classList.remove('hidden');
+      $pleaseSearch.classList.add('hidden');
       removeSearchResults();
     } else {
       $noResults.classList.add('hidden');
