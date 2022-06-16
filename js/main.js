@@ -1,26 +1,27 @@
-var $body = document.querySelector('body');
-var $searchBar = document.querySelector('.search-bar');
-var $searchForm = document.querySelector('#searchForm');
-var $reviewForm = document.querySelector('#reviewForm');
-var $ulAnimeResults = document.querySelector('#anmieResultsUl');
-var $ulReviews = document.querySelector('#reviewUl');
-var $reviewTitle = document.querySelector('#review-title');
-var $reviewText = document.querySelector('#review-text');
-var $viewNodeList = document.querySelectorAll('.view');
-var $animeImgReview = document.querySelector('#animeImgReview');
-var $animeTitleReview = document.querySelector('#animeTitleReview');
-var $starIconNodeList = document.querySelectorAll('.star');
-var $starDiv = document.querySelector('#starDiv');
-var btnId = -1;
-var $iconFooterNodeList = document.querySelectorAll('.icon-footer');
-var $reviewsPage = document.querySelector('#reviews');
-var $h3NewReview = document.querySelector('#h3NewReview');
-var $footer = document.querySelector('#footer');
-var $leftArrow = document.querySelector('#leftArrow');
-var $noReviews = document.querySelector('#noReviews');
-var $loadRing = document.querySelector('#loadRing');
-var $noResults = document.querySelector('#noResults');
-var $requestFailed = document.querySelector('#failed');
+const $body = document.querySelector('body');
+const $searchBar = document.querySelector('.search-bar');
+const $searchForm = document.querySelector('#searchForm');
+const $reviewForm = document.querySelector('#reviewForm');
+const $ulAnimeResults = document.querySelector('#anmieResultsUl');
+const $ulReviews = document.querySelector('#reviewUl');
+const $reviewTitle = document.querySelector('#review-title');
+const $reviewText = document.querySelector('#review-text');
+const $viewNodeList = document.querySelectorAll('.view');
+const $animeImgReview = document.querySelector('#animeImgReview');
+const $animeTitleReview = document.querySelector('#animeTitleReview');
+const $starIconNodeList = document.querySelectorAll('.star');
+const $starDiv = document.querySelector('#starDiv');
+let btnId = -1;
+const $iconFooterNodeList = document.querySelectorAll('.icon-footer');
+const $reviewsPage = document.querySelector('#reviews');
+const $h3NewReview = document.querySelector('#h3NewReview');
+const $footer = document.querySelector('#footer');
+const $leftArrow = document.querySelector('#leftArrow');
+const $noReviews = document.querySelector('#noReviews');
+const $loadRing = document.querySelector('#loadRing');
+const $noResults = document.querySelector('#noResults');
+const $requestFailed = document.querySelector('#failed');
+const $pleaseSearch = document.querySelector('#pleaseSearch');
 
 $body.addEventListener('submit', handleSearchSubmit);
 
@@ -31,9 +32,9 @@ function handleSearchSubmit(event) {
     getAnimeByName(data.searchText);
   }
   if (event.target === $reviewForm) {
-    var reviewRating = getRating();
+    const reviewRating = getRating();
     if (!data.editing) {
-      var form = {
+      const form = {
         reviewTitle: $reviewTitle.value,
         reviewText: $reviewText.value,
         reviewID: data.nextReviewId,
@@ -51,8 +52,8 @@ function handleSearchSubmit(event) {
       data.editing.reviewText = $reviewText.value;
       data.editing.reviewRating = reviewRating;
       $footer.classList.remove('hidden');
-      var editingID = data.editing.reviewID;
-      var $currentLi = document.querySelector('[data-review-id="' + editingID + '"]');
+      const editingID = data.editing.reviewID;
+      const $currentLi = document.querySelector('[data-review-id="' + editingID + '"]');
       $currentLi.replaceWith(getReviews(data.editing));
       footerNavButtons('reviews');
       data.editing = null;
@@ -69,20 +70,20 @@ function handleError(event) {
 }
 
 function getAnimeByName(search) {
-  var xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.jikan.moe/v4/anime?q=' + search + '&sfw=true&limit=20');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     data.searchResults = [];
-    var searchData = xhr.response;
+    const searchData = xhr.response;
 
     if (searchData.data.length === 0) {
       $noResults.classList.remove('hidden');
       removeSearchResults();
     } else {
       $noResults.classList.add('hidden');
-      for (var i = 0; i < searchData.data.length; i++) {
-        var useableData = {};
+      for (let i = 0; i < searchData.data.length; i++) {
+        const useableData = {};
         useableData.imageUrl = searchData.data[i].images.jpg.image_url;
         useableData.titleEnglish = searchData.data[i].title_english;
         useableData.title = searchData.data[i].title;
@@ -93,7 +94,7 @@ function getAnimeByName(search) {
       }
       removeSearchResults();
       btnId = -1;
-      for (var e = 0; e < data.searchResults.length; e++) {
+      for (let e = 0; e < data.searchResults.length; e++) {
         $ulAnimeResults.appendChild(searchResults(data.searchResults[e]));
       }
     }
@@ -112,18 +113,18 @@ function removeSearchResults() {
 
 function searchResults(results) {
   btnId++;
-  var $liAnimeSearch = document.createElement('li');
-  var $animeImg = document.createElement('img');
-  var $divAnimeSearch = document.createElement('div');
-  var $animeTitleH4 = document.createElement('h4');
-  var $animeSummaryP = document.createElement('p');
-  var $divType = document.createElement('div');
-  var $animeTypeHeadingH4 = document.createElement('h4');
-  var $animeTypeSpan = document.createElement('span');
-  var $divNumberOfEp = document.createElement('div');
-  var $numberOfEpHeadingH4 = document.createElement('h4');
-  var $numberOfEpSpan = document.createElement('span');
-  var $reviewAnchor = document.createElement('a');
+  const $liAnimeSearch = document.createElement('li');
+  const $animeImg = document.createElement('img');
+  const $divAnimeSearch = document.createElement('div');
+  const $animeTitleH4 = document.createElement('h4');
+  const $animeSummaryP = document.createElement('p');
+  const $divType = document.createElement('div');
+  const $animeTypeHeadingH4 = document.createElement('h4');
+  const $animeTypeSpan = document.createElement('span');
+  const $divNumberOfEp = document.createElement('div');
+  const $numberOfEpHeadingH4 = document.createElement('h4');
+  const $numberOfEpSpan = document.createElement('span');
+  const $reviewAnchor = document.createElement('a');
 
   $liAnimeSearch.classList.add('col-half', 'desktop-display-flex', 'mb-13', 'li-styles-all', 'font-size-12');
   $animeImg.classList.add('col-half', 'desktop-margin-0-10', 'border-radius-5', 'box-shadow');
@@ -151,7 +152,7 @@ function searchResults(results) {
     $animeSummaryP.textContent = 'No Summary Available.';
   }
   if ($animeSummaryP.textContent.length > 140) {
-    var spaceAfter140 = results.summary.indexOf(' ', 140);
+    const spaceAfter140 = results.summary.indexOf(' ', 140);
     $animeSummaryP.textContent = results.summary.slice(0, spaceAfter140) + '...';
   }
 
@@ -173,16 +174,18 @@ function searchResults(results) {
   $divAnimeSearch.appendChild($divNumberOfEp);
   $divAnimeSearch.appendChild($reviewAnchor);
 
+  $pleaseSearch.classList.add('hidden');
+
   return $liAnimeSearch;
 }
 
 window.addEventListener('DOMContentLoaded', handleUloadEvent);
 
 function handleUloadEvent(event) {
-  for (var i = 0; i < data.searchResults.length; i++) {
+  for (let i = 0; i < data.searchResults.length; i++) {
     $ulAnimeResults.appendChild(searchResults(data.searchResults[i]));
   }
-  for (var e = 0; e < data.reviews.length; e++) {
+  for (let e = 0; e < data.reviews.length; e++) {
     $ulReviews.appendChild(getReviews(data.reviews[e]));
   }
   if (data.reviewAnimeId !== null) {
@@ -201,7 +204,7 @@ function handleUloadEvent(event) {
 }
 
 function viewSwap(view) {
-  for (var i = 0; i < $viewNodeList.length; i++) {
+  for (let i = 0; i < $viewNodeList.length; i++) {
     if (view === $viewNodeList[i].getAttribute('data-view')) {
       $viewNodeList[i].classList.remove('hidden');
       data.view = $viewNodeList[i].getAttribute('data-view');
@@ -215,7 +218,7 @@ function getCurrentAnime(reviewButton) {
   data.currentAnime = reviewButton;
   data.formStatus = 'new';
   $h3NewReview.textContent = 'New Review';
-  var currentBtnId = reviewButton.getAttribute('data-review-btn-id');
+  const currentBtnId = reviewButton.getAttribute('data-review-btn-id');
   data.reviewAnimeId = currentBtnId;
   $animeImgReview.setAttribute('src', data.searchResults[currentBtnId].imageUrl);
   $animeTitleReview.textContent = data.searchResults[currentBtnId].titleEnglish;
@@ -228,8 +231,8 @@ $starDiv.addEventListener('click', setRating);
 
 function setRating(event) {
   if (event.target.matches('i')) {
-    var currentStarId = event.target.getAttribute('data-star-id');
-    for (var i = 0; i < $starIconNodeList.length; i++) {
+    const currentStarId = event.target.getAttribute('data-star-id');
+    for (let i = 0; i < $starIconNodeList.length; i++) {
       if (i <= currentStarId) {
         $starIconNodeList[i].classList.replace('far', 'fas');
       } else {
@@ -240,8 +243,8 @@ function setRating(event) {
 }
 
 function getRating() {
-  var starCount = 0;
-  for (var i = 0; i < $starIconNodeList.length; i++) {
+  let starCount = 0;
+  for (let i = 0; i < $starIconNodeList.length; i++) {
     if ($starIconNodeList[i].classList.contains('fas')) {
       starCount++;
     }
@@ -250,18 +253,18 @@ function getRating() {
 }
 
 function getReviews(form) {
-  var $liReview = document.createElement('li');
-  var $editDivReview = document.createElement('div');
-  var $editIconReview = document.createElement('i');
-  var $containerDiv = document.createElement('div');
-  var $imgDivReview = document.createElement('div');
-  var $imgReview = document.createElement('img');
-  var $textDivReview = document.createElement('div');
-  var $h4AnimeTitleReview = document.createElement('h4');
-  var $starDivReview = document.createElement('div');
-  var $h3RatingReview = document.createElement('h3');
-  var $h3TitleReivew = document.createElement('h3');
-  var $pTextReview = document.createElement('p');
+  const $liReview = document.createElement('li');
+  const $editDivReview = document.createElement('div');
+  const $editIconReview = document.createElement('i');
+  const $containerDiv = document.createElement('div');
+  const $imgDivReview = document.createElement('div');
+  const $imgReview = document.createElement('img');
+  const $textDivReview = document.createElement('div');
+  const $h4AnimeTitleReview = document.createElement('h4');
+  const $starDivReview = document.createElement('div');
+  const $h3RatingReview = document.createElement('h3');
+  const $h3TitleReivew = document.createElement('h3');
+  const $pTextReview = document.createElement('p');
 
   $liReview.classList.add('col-full', 'mb-13', 'li-styles-all', 'font-size-12', 'background-white', 'border-radius-5', 'box-shadow', 'padding-12');
   $liReview.dataset.reviewId = form.reviewID;
@@ -298,8 +301,8 @@ function getReviews(form) {
     $h3RatingReview.textContent = 'No Rating Given';
   }
 
-  for (var i = 0; i < form.reviewRating; i++) {
-    var $newStar = document.createElement('i');
+  for (let i = 0; i < form.reviewRating; i++) {
+    const $newStar = document.createElement('i');
     $newStar.classList.add('fas', 'fa-star', 'fa-2x');
     $starDivReview.appendChild($newStar);
   }
@@ -315,10 +318,10 @@ function getReviews(form) {
 $body.addEventListener('click', handleAnchorClick);
 
 function handleAnchorClick(event) {
-  var anchorDataView = event.target.getAttribute('data-view');
+  const anchorDataView = event.target.getAttribute('data-view');
   if (event.target.matches('a') || event.target.parentNode.matches('a')) {
     viewSwap(anchorDataView);
-    for (var e = 0; e < $starIconNodeList.length; e++) {
+    for (let e = 0; e < $starIconNodeList.length; e++) {
       $starIconNodeList[e].classList.replace('fas', 'far');
     }
 
@@ -335,7 +338,7 @@ function handleAnchorClick(event) {
 }
 
 function footerNavButtons(anchorDataView) {
-  for (var i = 0; i < $iconFooterNodeList.length; i++) {
+  for (let i = 0; i < $iconFooterNodeList.length; i++) {
     if ($iconFooterNodeList[i].getAttribute('data-view') === anchorDataView) {
       $iconFooterNodeList[i].classList.replace('icon-grey', 'icon-blue');
     } else {
@@ -362,7 +365,7 @@ function footerNavView(dataView) {
 $reviewsPage.addEventListener('click', editIconClickEvent);
 
 function editIconClickEvent(event) {
-  var liDataReviewId = event.target.closest('li').getAttribute('data-review-id');
+  let liDataReviewId = event.target.closest('li').getAttribute('data-review-id');
   liDataReviewId = Number(liDataReviewId);
   if (event.target.matches('i')) {
     viewSwap('review-form');
@@ -373,7 +376,7 @@ function editIconClickEvent(event) {
 }
 
 function getEntryData(reviewID) {
-  for (var i = 0; i < data.reviews.length; i++) {
+  for (let i = 0; i < data.reviews.length; i++) {
     if (reviewID === data.reviews[i].reviewID) {
       data.editing = data.reviews[i];
     }
@@ -388,7 +391,7 @@ function renderEditForm(review) {
   $reviewTitle.value = review.reviewTitle;
   $reviewText.value = review.reviewText;
 
-  for (var e = 0; e < data.editing.reviewRating; e++) {
+  for (let e = 0; e < data.editing.reviewRating; e++) {
     $starIconNodeList[e].classList.replace('far', 'fas');
   }
 }

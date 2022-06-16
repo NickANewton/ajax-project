@@ -1,6 +1,6 @@
 /* exported data */
 
-var data = {
+let data = {
   view: 'search',
   searchText: null,
   searchResults: [],
@@ -12,7 +12,7 @@ var data = {
   formStatus: null
 };
 
-var previousDataJSON = JSON.parse(localStorage.getItem('user-data'));
+const previousDataJSON = JSON.parse(localStorage.getItem('user-data'));
 
 if (previousDataJSON !== null) {
   data = previousDataJSON;
