@@ -8,7 +8,9 @@ A link to the live app:
 https://nickanewton.github.io/anirate/
 
 ## Technologies Used
--HTML, CSS, JavaScript
+- HTML
+- CSS
+- JavaScript
 - Jikan API
 
 ## Finished Features
@@ -21,7 +23,7 @@ https://nickanewton.github.io/anirate/
 ## Gifs
 ![alt text](https://nickanewton.github.io/anirate/images/anirateSearch.gif "Search Feature")
 
-![alt text](https://nickanewton.github.io/anirate/images/aniratereview.gif "Review Feature")
+![alt text](https://nickanewton.github.io/anirate/images/anirateReview.gif "Review Feature")
 
 ## Stretch Features to Implement
 - User can delete a review
