@@ -47,7 +47,7 @@ i {
   border: none;
   background-color: #5e86dd;
   color: white;
-  font-weight: 100;
+  font-weight: 400;
   font-size: 12px;
   letter-spacing: 1px;
 }
@@ -69,7 +69,7 @@ i {
   color: black;
   width: 100%;
   letter-spacing: 0.6px;
-  font-weight: 100;
+  font-weight: 400;
   border: 1px solid #ced4da;
   padding: 5px;
 }
